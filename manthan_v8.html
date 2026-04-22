@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manthan · Bajaj General</title>
+</head>
+<body>
+<style>
+:root{--bg:#fff;--bg2:#f5f5f5;--bg3:#efefef;--bgd:#FCEBEB;--tx:#1a1a1a;--tx2:#6b6b6b;--txd:#A32D2D;--bd:#d0d0d0;--bd2:#d8d8d8;--bd3:#e6e6e6;--bdd:#E24B4A;--r:4px;--rm:6px;--rl:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg3);color:var(--tx)}
+.screen{display:none}.screen.active{display:block}
+.navbar{background:var(--bg);border-bottom:0.5px solid var(--bd3);padding:0 20px;height:52px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200}
+.logo{font-size:15px;font-weight:600;color:#1a5fa8;white-space:nowrap}.logo span{color:#E24B4A}
+.rcs-pill{background:#0d47a1;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.4px}
+.int-badge{background:#e8f0fb;color:#0C447C;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px}
+.ext-badge{background:#fff3e0;color:#e65100;font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px}
+.nav-tabs{display:flex;gap:3px;flex:1;margin-left:8px;overflow:hidden}
+.nav-tab{padding:5px 11px;border-radius:var(--rm);font-size:13px;cursor:pointer;color:var(--tx2);border:none;background:none;white-space:nowrap}
+.nav-tab:hover{background:var(--bg2);color:var(--tx)}.nav-tab.active{background:#1a5fa8;color:#fff}
+.nav-right{display:flex;align-items:center;gap:8px;position:relative;margin-left:auto}
+.icon-btn{width:30px;height:30px;border-radius:50%;border:0.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;background:var(--bg);position:relative;flex-shrink:0}
+.notif-dot{width:7px;height:7px;background:#E24B4A;border-radius:50%;position:absolute;top:3px;right:3px}
+.avatar{width:30px;height:30px;border-radius:50%;background:#1a5fa8;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;cursor:pointer;flex-shrink:0}
+.avatar.adm{background:#7F77DD}
+.role-badge{padding:2px 7px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.rb-admin{background:#EEEDFE;color:#3C3489}.rb-member{background:#E6F1FB;color:#0C447C}
+.dd{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg);border:0.5px solid var(--bd2);border-radius:var(--rl);box-shadow:0 6px 24px rgba(0,0,0,.12);min-width:260px;z-index:999;display:none;max-height:400px;overflow-y:auto}
+.dd.show{display:block}
+.dd-head{padding:12px 14px;border-bottom:0.5px solid var(--bd3)}.dd-name{font-weight:600;font-size:13px;margin-bottom:1px}.dd-sub{font-size:11px;color:var(--tx2)}
+.dd-item{padding:9px 14px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--tx)}.dd-item:hover{background:var(--bg2)}.dd-item.red{color:#A32D2D}
+.dd-sep{height:0.5px;background:var(--bd3);margin:3px 0}
+.notif-item{padding:10px 14px;border-bottom:0.5px solid var(--bd3);cursor:pointer}.notif-item:last-child{border:none}.notif-item:hover{background:var(--bg2)}.notif-item.unread{background:#f0f5ff}
+.ni-text{font-size:12px;font-weight:500;margin-bottom:2px}.ni-time{font-size:11px;color:var(--tx2)}
+.main{display:flex;min-height:calc(100vh - 52px)}
+.sidebar{width:196px;background:var(--bg);border-right:0.5px solid var(--bd3);padding:14px 10px;flex-shrink:0}
+.sb-label{font-size:10px;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;padding:0 4px;font-weight:600}
+.s-item{padding:7px 10px;border-radius:var(--rm);font-size:13px;cursor:pointer;color:var(--tx2);margin-bottom:1px;transition:background .12s;display:flex;align-items:center;gap:7px}
+.s-item:hover{background:var(--bg2);color:var(--tx)}.s-item.active{background:#e8f0fb;color:#1a5fa8;font-weight:500}
+.content{flex:1;padding:20px;min-width:0}
+.right-panel{width:228px;padding:16px 14px;flex-shrink:0}
+.cat-dd{background:var(--bg);border:0.5px solid var(--bd2);border-radius:var(--rm);margin-top:3px;display:none;overflow:hidden}
+.cat-dd.open{display:block}.cat-dd-search{padding:6px 8px;border-bottom:0.5px solid var(--bd3)}
+.cat-dd-search input{width:100%;padding:5px 8px;border:0.5px solid var(--bd2);border-radius:var(--r);font-size:12px;color:var(--tx);background:var(--bg)}
+.cat-opt{padding:7px 10px;font-size:12px;cursor:pointer;color:var(--tx2)}.cat-opt:hover{background:var(--bg2);color:var(--tx)}
+.btn{padding:7px 14px;border-radius:var(--rm);font-size:13px;cursor:pointer;border:0.5px solid var(--bd2);background:var(--bg);color:var(--tx);transition:background .12s}.btn:hover{background:var(--bg2)}
+.btn-primary{background:#1a5fa8;color:#fff;border-color:#1a5fa8}.btn-primary:hover{background:#154d8a}
+.btn-sm{padding:4px 9px;font-size:12px}
+.btn-danger{background:var(--bgd);color:var(--txd);border-color:var(--bdd)}
+.btn-warn{background:#FAEEDA;color:#633806;border-color:#BA7517}
+.btn-success{background:#EAF3DE;color:#2d6a0f;border-color:#4caf50}
+.rp-card{background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:12px;margin-bottom:12px}
+.rp-title{font-size:11px;font-weight:600;margin-bottom:8px;color:var(--tx2);text-transform:uppercase;letter-spacing:.4px}
+.stat-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:0.5px solid var(--bd3)}.stat-row:last-child{border:none}
+.topic-card{background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px 15px;margin-bottom:9px;cursor:pointer;transition:border-color .12s}.topic-card:hover{border-color:#aac4e8}
+.topic-card.pinned{border-left:3px solid #1a5fa8;border-radius:0 var(--rl) var(--rl) 0}
+.tag{padding:2px 7px;border-radius:20px;font-size:11px;font-weight:500}
+.tc{background:#e8f0fb;color:#0C447C}.tu{background:#EAF3DE;color:#3B6D11}.tr{background:#FAEEDA;color:#854F0B}.ti{background:#FCEBEB;color:#A32D2D}.tg{background:#F1EFE8;color:#5F5E5A}.tk{background:#f3e8fd;color:#5b21b6}
+.sb{padding:2px 7px;border-radius:20px;font-size:11px}.so{background:#EAF3DE;color:#3B6D11}.sc{background:#F1EFE8;color:#888780}.sh{background:#FAEEDA;color:#854F0B}
+.fg{margin-bottom:13px}.fl{font-size:13px;font-weight:500;margin-bottom:5px;display:block}
+.fi{width:100%;padding:7px 11px;border:0.5px solid var(--bd2);border-radius:var(--rm);font-size:13px;background:var(--bg);color:var(--tx)}.fi:focus{outline:none;border-color:#1a5fa8}
+.fsel{width:100%;padding:7px 11px;border:0.5px solid var(--bd2);border-radius:var(--rm);font-size:13px;background:var(--bg);color:var(--tx)}
+.fta{width:100%;padding:9px 11px;border:0.5px solid var(--bd2);border-radius:var(--rm);font-size:13px;background:var(--bg);color:var(--tx);resize:vertical;min-height:110px}
+.upload-zone{border:1px dashed var(--bd2);border-radius:var(--rm);padding:16px;text-align:center;font-size:13px;color:var(--tx2);cursor:pointer}.upload-zone:hover{background:var(--bg2)}
+/* COMMENTS */
+.cb{background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px;margin-bottom:9px}
+.ca{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:600;flex-shrink:0}
+.toolbar{display:flex;gap:5px;flex-wrap:wrap;padding:5px 7px;background:var(--bg2);border-radius:var(--rm);margin-bottom:7px}
+.tb-btn{padding:2px 6px;border-radius:3px;font-size:12px;border:0.5px solid var(--bd2);background:var(--bg);cursor:pointer}
+/* REACTIONS */
+.reaction-bar{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--bd3)}
+.react-btn{padding:3px 8px;border-radius:20px;font-size:12px;border:0.5px solid var(--bd2);background:var(--bg2);cursor:pointer;display:flex;align-items:center;gap:3px;transition:all .12s}
+.react-btn:hover{background:#e8f0fb;border-color:#aac4e8}
+.react-btn.active{background:#e8f0fb;border-color:#1a5fa8;color:#1a5fa8;font-weight:500}
+.like-btn{padding:3px 9px;border-radius:20px;font-size:12px;border:0.5px solid var(--bd2);background:var(--bg);cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.like-btn:hover{background:#e8f0fb;border-color:#1a5fa8}
+.like-btn.liked{background:#e8f0fb;border-color:#1a5fa8;color:#1a5fa8}
+/* POLL */
+.poll-box{background:var(--bg2);border:0.5px solid var(--bd3);border-radius:var(--rm);padding:12px;margin-top:10px}
+.poll-opt{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px;cursor:pointer}
+.poll-bar-wrap{flex:1;background:var(--bg3);border-radius:4px;height:8px;overflow:hidden}
+.poll-bar{height:8px;background:#1a5fa8;border-radius:4px;transition:width .3s}
+/* ADMIN */
+.admin-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.admin-card{background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px}
+.stat-big{font-size:24px;font-weight:600;color:#1a5fa8}
+.admin-act{display:flex;gap:4px;flex-wrap:wrap}
+/* TEAMS */
+.team-card{background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:14px;margin-bottom:12px}
+.task-row{display:flex;align-items:flex-start;gap:8px;padding:7px 0;font-size:13px;border-bottom:0.5px solid var(--bd3)}
+.task-row:last-child{border:none}.ph{color:#A32D2D;font-size:11px}.pm{color:#854F0B;font-size:11px}.pl{color:#3B6D11;font-size:11px}
+/* MODALS */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:var(--bg);border-radius:var(--rl);padding:22px;width:500px;max-width:94vw;max-height:90vh;overflow-y:auto;position:relative}
+.modal-sm{width:340px}.mc{position:absolute;top:13px;right:15px;cursor:pointer;font-size:17px;color:var(--tx2);background:none;border:none;line-height:1}
+.mt{font-size:15px;font-weight:600;margin-bottom:14px}
+.status-btn{width:100%;text-align:left;padding:11px 13px;border-radius:var(--rm);border:0.5px solid var(--bd2);background:var(--bg);cursor:pointer;margin-bottom:7px;font-size:13px}
+.status-btn:hover{background:var(--bg2)}.status-btn strong{display:block;margin-bottom:2px}.status-btn span{font-size:12px;color:var(--tx2)}
+.divider{height:0.5px;background:var(--bd3);margin:10px 0}
+.flex-b{display:flex;justify-content:space-between;align-items:center}
+.crumb{font-size:12px;color:var(--tx2);margin-bottom:11px;cursor:pointer}.crumb span{color:#1a5fa8}
+.tab-row{display:flex;gap:5px;margin-bottom:12px;background:var(--bg2);padding:3px;border-radius:var(--rm)}
+.tab-pill{flex:1;padding:5px;text-align:center;font-size:12px;border-radius:5px;cursor:pointer;color:var(--tx2)}.tab-pill.active{background:var(--bg);color:var(--tx);font-weight:500}
+.pg-title{font-size:17px;font-weight:600;margin-bottom:14px}.sec-head{font-size:13px;font-weight:600;margin-bottom:9px}
+.chip{display:inline-flex;align-items:center;gap:4px;background:#e8f0fb;color:#1a5fa8;border-radius:20px;padding:2px 8px;font-size:12px;margin:2px}
+.chip button{background:none;border:none;cursor:pointer;color:#1a5fa8;font-size:14px;line-height:1;padding:0 0 0 2px}
+.member-row{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--rm);cursor:pointer;font-size:13px}.member-row:hover{background:var(--bg2)}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.dot-a{background:#2e7d32}.dot-i{background:#e65100}.dot-d{background:#bbb}
+.tr-item{display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:0.5px solid var(--bd3);cursor:pointer}.tr-item:last-child{border:none}
+.tr-rank{font-size:15px;font-weight:700;color:#1a5fa8;min-width:18px}.tr-title{font-size:12px;font-weight:500;line-height:1.4;margin-bottom:2px}.tr-meta{font-size:11px;color:var(--tx2)}
+.contrib-row{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:0.5px solid var(--bd3)}.contrib-row:last-child{border:none}
+.vis-tag{background:#f3e8fd;color:#5b21b6;border-radius:20px;padding:2px 7px;font-size:11px;font-weight:500}
+
+/* ══ OTP / EXTERNAL LOGIN ══ */
+.otp-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#fff3e0 0%,#fbe9e7 50%,#fff8f0 100%)}
+.otp-card{background:#fff;border:0.5px solid var(--bd3);border-radius:var(--rl);padding:36px 32px;width:400px;box-shadow:0 4px 28px rgba(0,0,0,.10)}
+.otp-logo{font-size:22px;font-weight:700;color:#1a5fa8;margin-bottom:2px}
+.otp-sub{font-size:13px;color:var(--tx2);margin-bottom:6px}
+.ext-entry-banner{background:#e65100;color:#fff;border-radius:var(--rm);padding:11px 14px;margin-bottom:16px;font-size:12px;line-height:1.65}
+.ext-entry-banner strong{font-weight:700}
+.otp-step-indicator{display:flex;align-items:center;gap:0;margin-bottom:20px}
+.otp-step{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--tx2)}
+.otp-step.done{color:#2e7d32}
+.otp-step.active{color:#1a5fa8;font-weight:700}
+.otp-step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid var(--bd2);background:var(--bg);color:var(--tx2);flex-shrink:0}
+.otp-step.active .otp-step-num{border-color:#1a5fa8;background:#1a5fa8;color:#fff}
+.otp-step.done .otp-step-num{border-color:#2e7d32;background:#2e7d32;color:#fff}
+.otp-divider-line{flex:1;height:1px;background:var(--bd3);margin:0 6px}
+.otp-boxes{display:flex;gap:10px;justify-content:center;margin:18px 0}
+.otp-box{width:46px;height:52px;text-align:center;border:2px solid var(--bd2);border-radius:var(--rm);font-size:22px;font-weight:700;color:var(--tx);background:var(--bg);transition:all .15s;outline:none}
+.otp-box:focus{border-color:#1a5fa8;box-shadow:0 0 0 3px rgba(26,95,168,.15)}
+.otp-box.filled{border-color:#2e7d32;background:#f1f8e9}
+.otp-resend{font-size:12px;color:var(--tx2);text-align:center;margin-top:8px}
+.otp-resend span{color:#1a5fa8;cursor:pointer;font-weight:500}
+.otp-resend span:hover{text-decoration:underline}
+.otp-timer{font-weight:600;color:#e65100}
+.otp-success{display:none;text-align:center;padding:16px 0}
+.otp-success .check-circle{width:56px;height:56px;border-radius:50%;background:#2e7d32;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.email-display{background:var(--bg2);border:0.5px solid var(--bd3);border-radius:var(--rm);padding:9px 13px;font-size:13px;font-weight:600;color:#1a5fa8;margin:12px 0;text-align:center;word-break:break-all}
+.otp-info-note{background:#f3f8ff;border:0.5px solid #b5d4f4;border-radius:var(--rm);padding:9px 12px;font-size:11px;color:#1a3a5c;line-height:1.65;margin-top:10px}
+.hyperlink-demo{background:var(--bg2);border:0.5px solid var(--bd3);border-radius:var(--rm);padding:10px 13px;margin-bottom:14px;font-size:12px;color:var(--tx2)}
+.hyperlink-demo a{color:#1a5fa8;font-weight:500;word-break:break-all}
+.hyperlink-demo .link-note{font-size:11px;color:#888;margin-top:3px}
+
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#dbeafe,#f0f9ff)}
+.login-card{background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:34px 30px;width:370px;box-shadow:0 4px 24px rgba(0,0,0,.09)}
+.login-logo{font-size:22px;font-weight:700;color:#1a5fa8;margin-bottom:2px}.login-sub{font-size:13px;color:var(--tx2);margin-bottom:16px}
+.rcs-banner{background:#0d47a1;color:#fff;border-radius:var(--rm);padding:11px 13px;margin-bottom:14px;font-size:12px;line-height:1.65}
+.login-hint{background:var(--bg2);border:0.5px solid var(--bd3);border-radius:var(--rm);padding:10px 12px;margin-bottom:15px;font-size:12px;color:var(--tx2);line-height:1.7}
+.err-msg{color:#A32D2D;font-size:12px;margin-top:5px;display:none}
+/* REMARK BOX */
+.remark-box{background:#fffde7;border:0.5px solid #f9a825;border-radius:var(--rm);padding:8px 11px;margin-top:6px;font-size:12px}
+
+/* DISABLE COMMENTS BANNER */
+.comments-disabled-banner{background:#fff3e0;border:0.5px solid #ffb74d;border-radius:var(--rm);padding:10px 14px;margin-bottom:13px;display:flex;align-items:center;gap:8px;font-size:13px;color:#e65100}
+/* REPORT BUTTON */
+.btn-report{background:#fff3e0;color:#bf360c;border:0.5px solid #ff8a65;padding:4px 9px;font-size:12px;border-radius:var(--rm);cursor:pointer}
+.btn-report:hover{background:#ffe0b2}
+/* REPORT MODAL */
+.report-reason-btn{width:100%;text-align:left;padding:10px 13px;border-radius:var(--rm);border:0.5px solid var(--bd2);background:var(--bg);cursor:pointer;margin-bottom:7px;font-size:13px;transition:background .12s}
+.report-reason-btn:hover{background:#fff3e0;border-color:#ff8a65}
+.report-reason-btn.selected{background:#fff3e0;border-color:#ff8a65;color:#bf360c}
+/* REPORT NOTIF */
+.notif-item.report{background:#fff8f0}
+/* Comments disabled state */
+.comments-off-label{display:inline-flex;align-items:center;gap:5px;background:#fff3e0;color:#e65100;border-radius:20px;padding:2px 9px;font-size:11px;font-weight:600;border:0.5px solid #ffb74d}
+
+/* TOPIC reaction strip */
+.topic-react-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--bd3)}
+.t-react{padding:4px 10px;border-radius:20px;font-size:13px;border:0.5px solid var(--bd2);background:var(--bg2);cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.t-react:hover{background:#e8f0fb;border-color:#1a5fa8}.t-react.active{background:#e8f0fb;border-color:#1a5fa8;font-weight:600}
+</style>
+
+<!-- ══════════ SCREEN 1: ENTRY POINT — Choose login type ══════════ -->
+<div id="loginScreen" class="screen active">
+<div class="login-wrap"><div class="login-card">
+  <div class="otp-logo">Manthan</div>
+  <div class="otp-sub">Bajaj General — Internal Discussion Forum</div>
+
+  <!-- RCS SSO Banner -->
+  <div class="rcs-banner" style="margin-top:12px">
+    <strong>RCS Users (Internal):</strong> Already logged into RCS?<br>
+    You are <strong>automatically signed into Manthan</strong> — no separate login needed.<br>
+    <span style="font-size:11px;opacity:.85">Demo → enter: rcs.user@bajajgeneral.com</span>
+  </div>
+
+  <!-- Internal login form (password based) -->
+  <div id="internalLoginSection">
+    <div class="login-hint" style="margin-top:12px">
+      <strong>Internal demo — Admin:</strong> admin@bajajgeneral.com<br>
+      <strong>Internal demo — Member:</strong> member@bajajgeneral.com<br>
+      <span style="font-size:11px">(any password)</span>
+    </div>
+    <div class="fg"><label class="fl">Employee Email</label>
+      <input class="fi" id="loginEmail" placeholder="your.name@bajajgeneral.com"/>
+    </div>
+    <div class="fg"><label class="fl">Password</label>
+      <input class="fi" type="password" id="loginPass" placeholder="••••••••"
+        onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <div class="err-msg" id="loginErr">Invalid credentials. Please try again.</div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="doLogin()">Sign In to Manthan</button>
+  </div>
+
+  <!-- Divider -->
+  <div style="display:flex;align-items:center;gap:10px;margin:16px 0">
+    <div style="flex:1;height:0.5px;background:var(--bd3)"></div>
+    <span style="font-size:11px;color:var(--tx2)">or</span>
+    <div style="flex:1;height:0.5px;background:var(--bd3)"></div>
+  </div>
+
+  <!-- External user entry -->
+  <button class="btn" style="width:100%;border-color:#e65100;color:#e65100;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px" onclick="goToExtEmailScreen()">
+    <span style="font-size:15px">🔗</span> Join via External Invite Link
+  </button>
+  <p style="font-size:11px;color:var(--tx2);text-align:center;margin-top:8px">External partners & vendors — use the invite link sent to your email</p>
+</div></div>
+</div>
+
+<!-- ══════════ SCREEN 2: EXTERNAL — Email Entry & OTP Send ══════════ -->
+<div id="extEmailScreen" class="screen">
+<div class="otp-wrap"><div class="otp-card">
+  <div class="otp-logo">Manthan</div>
+  <div class="otp-sub" style="margin-bottom:14px">External Member Access</div>
+
+  <!-- Step indicator -->
+  <div class="otp-step-indicator">
+    <div class="otp-step active" id="step1">
+      <div class="otp-step-num">1</div>
+      <span>Enter Email</span>
+    </div>
+    <div class="otp-divider-line"></div>
+    <div class="otp-step" id="step2">
+      <div class="otp-step-num">2</div>
+      <span>Verify OTP</span>
+    </div>
+    <div class="otp-divider-line"></div>
+    <div class="otp-step" id="step3">
+      <div class="otp-step-num">3</div>
+      <span>Access Manthan</span>
+    </div>
+  </div>
+
+  <div class="ext-entry-banner">
+    <strong>External Access Only.</strong> Enter your Bajaj General registered email address. An OTP will be sent to verify your identity. No password required.
+  </div>
+
+  <!-- Hyperlink note (shown only when arriving via invite link) -->
+  <div class="hyperlink-demo" id="inviteLinkNote" style="display:none"></div>
+
+  <div class="fg">
+    <label class="fl">Your Email Address</label>
+    <input class="fi" id="extEmail" placeholder="yourname@yourcompany.com"
+      onkeydown="if(event.key==='Enter')sendOTP()"/>
+    <div style="font-size:11px;color:var(--tx2);margin-top:4px">Enter your registered email address to receive a one-time OTP</div>
+  </div>
+  <div class="err-msg" id="extEmailErr">Please enter a valid email address.</div>
+
+  <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="sendOTP()">
+    Send OTP to My Email →
+  </button>
+
+  <div class="otp-info-note" style="margin-top:12px">
+    🔐 An OTP (One-Time Password) will be sent to your email. Valid for 10 minutes. No password needed — your email is your identity.
+  </div>
+
+  <p style="font-size:12px;color:var(--tx2);text-align:center;margin-top:14px;cursor:pointer" onclick="goToLoginScreen()">← Back to main login</p>
+</div></div>
+</div>
+
+<!-- ══════════ SCREEN 3: EXTERNAL — OTP Verification ══════════ -->
+<div id="extOTPScreen" class="screen">
+<div class="otp-wrap"><div class="otp-card">
+  <div class="otp-logo">Manthan</div>
+  <div class="otp-sub" style="margin-bottom:14px">External Member Access</div>
+
+  <!-- Step indicator -->
+  <div class="otp-step-indicator">
+    <div class="otp-step done" id="ostep1">
+      <div class="otp-step-num">✓</div>
+      <span>Enter Email</span>
+    </div>
+    <div class="otp-divider-line"></div>
+    <div class="otp-step active" id="ostep2">
+      <div class="otp-step-num">2</div>
+      <span>Verify OTP</span>
+    </div>
+    <div class="otp-divider-line"></div>
+    <div class="otp-step" id="ostep3">
+      <div class="otp-step-num">3</div>
+      <span>Access Manthan</span>
+    </div>
+  </div>
+
+  <!-- Success state (hidden initially) -->
+  <div class="otp-success" id="otpSuccessState">
+    <div class="check-circle">✓</div>
+    <div style="font-size:15px;font-weight:600;color:#2e7d32;margin-bottom:6px">Identity Verified!</div>
+    <div style="font-size:13px;color:var(--tx2);margin-bottom:16px">Logging you into Manthan...</div>
+    <div style="width:100%;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden">
+      <div id="loginProgress" style="width:0%;height:100%;background:#2e7d32;transition:width 1.5s ease"></div>
+    </div>
+  </div>
+
+  <!-- OTP entry state -->
+  <div id="otpEntryState">
+    <div style="font-size:13px;color:var(--tx);margin-bottom:4px;font-weight:500">OTP sent to:</div>
+    <div class="email-display" id="otpEmailDisplay">---</div>
+
+    <div style="font-size:13px;color:var(--tx2);text-align:center;margin-bottom:4px">Enter the 6-digit OTP</div>
+
+    <div class="otp-boxes">
+      <input class="otp-box" id="otp1" maxlength="1" type="text" inputmode="numeric"
+        oninput="otpInput(this,'otp2')" onkeydown="otpBack(event,this,'')"/>
+      <input class="otp-box" id="otp2" maxlength="1" type="text" inputmode="numeric"
+        oninput="otpInput(this,'otp3')" onkeydown="otpBack(event,this,'otp1')"/>
+      <input class="otp-box" id="otp3" maxlength="1" type="text" inputmode="numeric"
+        oninput="otpInput(this,'otp4')" onkeydown="otpBack(event,this,'otp2')"/>
+      <input class="otp-box" id="otp4" maxlength="1" type="text" inputmode="numeric"
+        oninput="otpInput(this,'otp5')" onkeydown="otpBack(event,this,'otp3')"/>
+      <input class="otp-box" id="otp5" maxlength="1" type="text" inputmode="numeric"
+        oninput="otpInput(this,'otp6')" onkeydown="otpBack(event,this,'otp4')"/>
+      <input class="otp-box" id="otp6" maxlength="1" type="text" inputmode="numeric"
+        oninput="otpInput(this,null)" onkeydown="otpBack(event,this,'otp5')"/>
+    </div>
+
+    <div class="err-msg" id="otpErr" style="text-align:center;margin-bottom:8px">Invalid OTP. Please try again.</div>
+
+    <button class="btn btn-primary" style="width:100%" onclick="verifyOTP()">
+      Verify &amp; Enter Manthan
+    </button>
+
+    <div class="otp-resend">
+      Didn't receive it?
+      <span id="resendBtn" onclick="resendOTP()" style="display:none">Resend OTP</span>
+      <span id="resendTimer" class="otp-timer">Resend in <span id="timerCount">60</span>s</span>
+    </div>
+
+    <div class="otp-info-note" style="margin-top:12px">
+      💡 <strong>Demo OTP: 123456</strong><br>
+      In production, a real 6-digit OTP will be sent to the registered email address via Bajaj General email server.
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--tx2);text-align:center;margin-top:14px;cursor:pointer" onclick="goToExtEmailScreen()">← Change email address</p>
+</div></div>
+</div>
+
+<!-- HOME -->
+<div id="homeScreen" class="screen">
+<div class="navbar">
+  <div class="logo">Manthan <span>·</span> Bajaj General <span id="rcsLabel" style="display:none"><span class="rcs-pill">RCS</span></span></div>
+  <div class="nav-tabs" id="homeNavTabs"></div>
+  <div class="nav-right" id="homeNavRight"></div>
+</div>
+<div class="main">
+  <div class="sidebar">
+    <div class="s-item active" id="sAll" onclick="filterCat('all',this)">🏠 All Topics</div>
+    <div class="divider"></div>
+    <div class="s-item" id="sCatToggle" onclick="toggleCatDD()">📂 Categories <span style="margin-left:auto;font-size:10px" id="catArrow">▾</span></div>
+    <div class="cat-dd" id="catDD">
+      <div class="cat-dd-search"><input id="catSearch" placeholder="Search categories…" oninput="renderCatList(this.value)"/></div>
+      <div id="catList"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sb-label">My Topics</div>
+    <div class="s-item" onclick="filterCat('active',this)">⚡ Active Topics</div>
+    <div class="s-item" onclick="filterCat('mycreated',this)">📝 My Topics</div>
+    <div class="s-item" onclick="filterCat('subscribed',this)">🔔 Subscribed</div>
+    <div class="s-item" onclick="filterCat('closed',this)">🗂 Closed Topics</div>
+    <div class="divider"></div>
+    <div class="s-item" onclick="filterCat('pinned',this)">📌 Pinned</div>
+  </div>
+  <div class="content">
+    <div class="flex-b" style="margin-bottom:12px">
+      <div class="pg-title" id="homeTitle">All Topics</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm" onclick="sortTopics('recent')">Recent</button>
+        <button class="btn btn-sm" onclick="sortTopics('popular')">Popular</button>
+      </div>
+    </div>
+    <input class="fi" style="margin-bottom:13px" placeholder="Search by title, ID or tag…" oninput="searchTopics(this.value)"/>
+    <div id="topicsList"></div>
+  </div>
+  <div class="right-panel">
+    <div class="rp-card">
+      <div class="rp-title">Forum Stats</div>
+      <div class="stat-row"><span>Total Topics</span><span id="stTotal" style="font-weight:600">6</span></div>
+      <div class="stat-row"><span>Active</span><span id="stActive" style="color:#3B6D11;font-weight:600">5</span></div>
+      <div class="stat-row"><span>Closed</span><span id="stClosed" style="color:#888780;font-weight:600">1</span></div>
+      <div class="stat-row"><span>Members</span><span style="font-weight:600">124</span></div>
+    </div>
+    <div class="rp-card">
+      <div class="rp-title">🔥 Top 5 Trending Topics</div>
+      <div id="trendingPanel"></div>
+    </div>
+    <div class="rp-card">
+      <div class="rp-title">🏆 Top Contributors</div>
+      <div id="contribPanel"></div>
+    </div>
+    <div class="rp-card">
+      <div class="rp-title">Popular Tags</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        <span class="tag tc">Claims</span><span class="tag tr">IRDAI</span><span class="tag tu">Motor</span><span class="tag ti">TAT</span><span class="tag tg">Policy</span><span class="tag tg">Fraud</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TOPIC DETAIL -->
+<div id="topicDetailScreen" class="screen">
+<div class="navbar">
+  <div class="logo">Manthan <span>·</span> Bajaj General</div>
+  <div class="nav-tabs" id="detailNavTabs"></div>
+  <div class="nav-right" id="detailNavRight"></div>
+</div>
+<div class="content" style="max-width:860px;margin:0 auto">
+  <div class="crumb" onclick="showHome()">← Back to <span>All Topics</span></div>
+  <div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:17px 19px;margin-bottom:13px">
+    <div class="flex-b" style="margin-bottom:7px">
+      <span style="font-size:11px;color:var(--tx2)" id="detailId"></span>
+      <div style="display:flex;gap:5px;flex-wrap:wrap" id="detailActionBtns"></div>
+    </div>
+    <div style="font-size:17px;font-weight:600;margin-bottom:7px" id="detailTitle"></div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px" id="detailTags"></div>
+    <div style="font-size:13px;line-height:1.7" id="detailBody"></div>
+    <div style="margin-top:11px;font-size:12px;color:var(--tx2)" id="detailMeta"></div>
+    <!-- TOPIC REACTIONS -->
+    <div id="topicReactions" class="topic-react-strip"></div>
+  </div>
+  <div class="sec-head">📎 Attachments</div>
+  <div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px;margin-bottom:13px">
+    <div id="attachList" style="margin-bottom:10px;font-size:13px;color:var(--tx2)">No attachments yet.</div>
+    <div class="upload-zone" onclick="simulateAttach()">Click to attach a file to this discussion<br><span style="font-size:11px">PDF, XLSX, DOCX, PNG — max 10MB</span></div>
+  </div>
+  <div class="sec-head">💬 Comments</div>
+  <div id="commentsList"></div>
+  <div id="commentInput" style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px">
+    <div class="toolbar">
+      <button class="tb-btn">B</button><button class="tb-btn">I</button><button class="tb-btn">U</button><button class="tb-btn">≡</button>
+      <button class="tb-btn" onclick="openPollModal()" title="Create Poll">📊 Poll</button>
+    </div>
+    <textarea class="fta" style="min-height:75px" id="newComment" placeholder="Share your insights… or create a poll using the 📊 button"></textarea>
+    <div style="display:flex;gap:7px;margin-top:7px;justify-content:flex-end">
+      <button class="btn btn-sm" onclick="document.getElementById('newComment').value=''">Clear</button>
+      <button class="btn btn-sm btn-primary" onclick="addComment()">Post Comment</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CREATE TOPIC -->
+<div id="createTopicScreen" class="screen">
+<div class="navbar">
+  <div class="logo">Manthan <span>·</span> Bajaj General</div>
+  <div class="nav-tabs" id="createNavTabs"></div>
+  <div class="nav-right" id="createNavRight"></div>
+</div>
+<div class="content" style="max-width:720px;margin:0 auto">
+  <div class="pg-title">Create New Topic</div>
+  <div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:20px">
+    <div class="fg"><label class="fl">Topic Title *</label><input class="fi" id="newTopicTitle" placeholder="Enter a clear, descriptive title…"/></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="fg">
+        <label class="fl">Category *</label>
+        <select class="fsel" id="newTopicCat"><option value="">Select category</option></select>
+        <div style="display:flex;gap:6px;margin-top:7px">
+          <input class="fi" id="newCatName" placeholder="+ New category name…" style="font-size:12px;padding:5px 9px"/>
+          <button class="btn btn-sm btn-primary" onclick="addCategory()">Add</button>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Tags</label><input class="fi" id="newTopicTags" placeholder="e.g. IRDAI, Motor (comma separated)"/></div>
+    </div>
+    <!-- VISIBILITY — now includes internal/external options -->
+    <div class="fg">
+      <label class="fl">Visibility</label>
+      <select class="fsel" id="visibilitySel" onchange="toggleVisPicker(this.value)">
+        <option value="all">Visible to all members</option>
+        <option value="internal">Visible to internal members only</option>
+        <option value="external">Visible to external members only</option>
+        <option value="specific">Specific members only</option>
+      </select>
+    </div>
+    <div id="visPickerWrap" style="display:none;margin-bottom:13px">
+      <label class="fl">Select Members</label>
+      <div style="border:0.5px solid var(--bd2);border-radius:var(--rm);overflow:hidden">
+        <input class="fi" style="border:none;border-bottom:0.5px solid var(--bd3);border-radius:0" placeholder="Search members…" oninput="renderVisPicker(this.value)"/>
+        <div id="visPickerList" style="max-height:150px;overflow-y:auto"></div>
+      </div>
+      <div style="margin-top:6px" id="visChips"></div>
+    </div>
+    <div class="fg"><label class="fl">Discussion *</label>
+      <div class="toolbar"><button class="tb-btn">B</button><button class="tb-btn">I</button><button class="tb-btn">U</button><button class="tb-btn">T</button><button class="tb-btn">≡</button><button class="tb-btn">1.</button></div>
+      <textarea class="fta" id="newTopicBody" placeholder="Write your discussion here…"></textarea>
+    </div>
+    <div class="fg"><label class="fl">Attach Files</label>
+      <div class="upload-zone">Drag &amp; drop or click to upload<br><span style="font-size:11px">PDF, XLSX, DOCX, PNG — max 10MB</span></div>
+    </div>
+    <div class="fg" style="display:flex;align-items:center;gap:10px;background:#fff3e0;border:0.5px solid #ffb74d;border-radius:var(--rm);padding:10px 14px">
+      <input type="checkbox" id="newTopicDisableComments" style="width:16px;height:16px;cursor:pointer;accent-color:#e65100"/>
+      <div>
+        <label for="newTopicDisableComments" style="font-size:13px;font-weight:500;cursor:pointer;color:#bf360c">🚫 Disable comments on this topic</label>
+        <div style="font-size:11px;color:#e65100;margin-top:2px">Members will not be able to post comments. You can change this later.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:7px;justify-content:flex-end">
+      <button class="btn" onclick="showHome()">Cancel</button>
+      <button class="btn" onclick="alert('Draft saved!')">Save Draft</button>
+      <button class="btn btn-primary" onclick="publishTopic()">Publish Topic</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TEAMS -->
+<div id="teamsScreen" class="screen">
+<div class="navbar">
+  <div class="logo">Manthan <span>·</span> Bajaj General</div>
+  <div class="nav-tabs" id="teamsNavTabs"></div>
+  <div class="nav-right" id="teamsNavRight"></div>
+</div>
+<div class="content">
+  <div class="flex-b" style="margin-bottom:14px">
+    <div class="pg-title">Teams &amp; Tasks</div>
+    <div id="teamsTopBtn"></div>
+  </div>
+  <div id="teamsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px"></div>
+</div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminScreen" class="screen">
+<div class="navbar">
+  <div class="logo">Manthan <span>·</span> Bajaj General</div>
+  <div class="nav-tabs" id="adminNavTabs"></div>
+  <div class="nav-right" id="adminNavRight"></div>
+</div>
+<div class="main">
+  <div class="sidebar">
+    <div class="sb-label">Admin Panel</div>
+    <div class="s-item active" onclick="adminTab('dashboard',this)">📊 Dashboard</div>
+    <div class="s-item" onclick="adminTab('topics',this)">📋 Manage Topics</div>
+    <div class="s-item" onclick="adminTab('users',this)">👥 User Management</div>
+    <div class="s-item" onclick="adminTab('audit',this)">📜 Audit Logs</div>
+  </div>
+  <div class="content" id="adminContent" style="min-height:600px"></div>
+</div>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+<!-- New Team -->
+<div class="overlay" id="modalNewTeam"><div class="modal">
+  <button class="mc" onclick="closeModal('modalNewTeam')">✕</button>
+  <div class="mt">Create New Team</div>
+  <div class="fg"><label class="fl">Team Name *</label><input class="fi" id="mTeamName" placeholder="e.g. Claims Processing Team"/></div>
+  <div class="fg">
+    <label class="fl">Add Members</label>
+    <input class="fi" style="margin-bottom:7px" placeholder="Search members…" oninput="renderTeamMemberList(this.value)" id="teamMemberSearch"/>
+    <div style="border:0.5px solid var(--bd2);border-radius:var(--rm);max-height:160px;overflow-y:auto" id="teamMemberPickList"></div>
+    <div style="margin-top:7px" id="teamMemberChips"></div>
+  </div>
+  <div style="display:flex;gap:7px;justify-content:flex-end">
+    <button class="btn" onclick="closeModal('modalNewTeam')">Cancel</button>
+    <button class="btn btn-primary" onclick="createTeam()">Create Team</button>
+  </div>
+</div></div>
+
+<!-- Add Task — now with multi-select assignees -->
+<div class="overlay" id="modalAddTask"><div class="modal">
+  <button class="mc" onclick="closeModal('modalAddTask')">✕</button>
+  <div class="mt">Add Task</div>
+  <div class="fg"><label class="fl">Task Name *</label><input class="fi" id="mTaskName" placeholder="Describe the task or deliverable…"/></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="fg"><label class="fl">Priority</label><select class="fsel" id="mTaskPrio"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
+    <div class="fg"><label class="fl">Due Date</label><input class="fi" type="date" id="mTaskDue"/></div>
+  </div>
+  <div class="fg">
+    <label class="fl">Assign To (select multiple)</label>
+    <div style="border:0.5px solid var(--bd2);border-radius:var(--rm);overflow:hidden">
+      <div style="padding:5px 8px;background:var(--bg2);font-size:11px;color:var(--tx2);border-bottom:0.5px solid var(--bd3)">Click to select one or more members</div>
+      <div id="taskAssigneeList" style="max-height:140px;overflow-y:auto"></div>
+    </div>
+    <div style="margin-top:5px" id="taskAssigneeChips"></div>
+  </div>
+  <div class="fg"><label class="fl">Deliverables / Notes</label><textarea class="fta" style="min-height:70px" id="mTaskNotes" placeholder="Add any notes or deliverables…"></textarea></div>
+  <div style="display:flex;gap:7px;justify-content:flex-end">
+    <button class="btn" onclick="closeModal('modalAddTask')">Cancel</button>
+    <button class="btn btn-primary" onclick="submitTask()">Add Task</button>
+  </div>
+</div></div>
+
+<!-- Request Permission (renamed from Approval) -->
+<div class="overlay" id="modalPermission"><div class="modal">
+  <button class="mc" onclick="closeModal('modalPermission')">✕</button>
+  <div class="mt">Request Permission</div>
+  <div class="fg"><label class="fl">Subject *</label><input class="fi" id="mPermSubject" placeholder="What permission do you need?"/></div>
+  <div class="fg"><label class="fl">Details</label><textarea class="fta" style="min-height:75px" id="mPermDetails" placeholder="Describe what you need and why…"></textarea></div>
+  <div class="fg"><label class="fl">Attach Files / Images</label>
+    <div class="upload-zone" onclick="simulatePermAttach()" id="permAttachZone">Click to attach supporting files or images<br><span style="font-size:11px">PDF, PNG, JPG — max 10MB</span></div>
+    <div id="permAttachList" style="margin-top:6px"></div>
+  </div>
+  <div style="display:flex;gap:7px;justify-content:flex-end">
+    <button class="btn" onclick="closeModal('modalPermission')">Cancel</button>
+    <button class="btn btn-primary" onclick="submitPermission()">Submit Request</button>
+  </div>
+</div></div>
+
+<!-- Grant/Reject Permission (admin) -->
+<div class="overlay" id="modalGrantReject"><div class="modal modal-sm" style="width:400px">
+  <button class="mc" onclick="closeModal('modalGrantReject')">✕</button>
+  <div class="mt" id="grTitle">Review Permission Request</div>
+  <div style="background:var(--bg2);border-radius:var(--rm);padding:11px;margin-bottom:14px;font-size:13px" id="grDetail"></div>
+  <div class="fg"><label class="fl">Remarks (optional)</label><textarea class="fta" style="min-height:70px" id="grRemarks" placeholder="Add your remarks or reason here…"></textarea></div>
+  <div style="display:flex;gap:7px;justify-content:flex-end">
+    <button class="btn" onclick="closeModal('modalGrantReject')">Cancel</button>
+    <button class="btn btn-danger" onclick="doGrantReject('rejected')">Reject</button>
+    <button class="btn btn-success" onclick="doGrantReject('granted')">Grant</button>
+  </div>
+</div></div>
+
+<!-- Add Member Modal — now with user type field -->
+<div class="overlay" id="modalAddMember"><div class="modal">
+  <button class="mc" onclick="closeModal('modalAddMember')">✕</button>
+  <div class="mt">Add New Member</div>
+  <div class="fg"><label class="fl">Full Name *</label><input class="fi" id="mMemName" placeholder="e.g. Rahul Mehta"/></div>
+  <div class="fg"><label class="fl">Email Address *</label><input class="fi" id="mMemEmail" placeholder="rahul.mehta@bajajgeneral.com"/></div>
+  <div class="fg"><label class="fl">Department *</label>
+    <select class="fsel" id="mMemDept">
+      <option value="">Select Department</option>
+      <option>Claims — Motor</option><option>Claims — Non-Motor</option><option>Underwriting</option>
+      <option>Regulatory &amp; Compliance</option><option>Finance &amp; Accounts</option><option>IT &amp; Systems</option>
+      <option>HR &amp; Administration</option><option>Legal</option><option>Risk Management</option>
+      <option>Customer Service</option><option>Operations</option>
+    </select>
+  </div>
+  <!-- NEW: User Type field -->
+  <div class="fg"><label class="fl">User Type *</label>
+    <select class="fsel" id="mMemType">
+      <option value="internal">Internal User</option>
+      <option value="external">External User</option>
+    </select>
+    <div style="font-size:11px;color:var(--tx2);margin-top:4px">Internal = Bajaj General employees · External = partners, vendors, consultants</div>
+  </div>
+  <div class="fg"><label class="fl">Role</label>
+    <select class="fsel" id="mMemRole"><option value="member">Member</option><option value="admin">Admin</option></select>
+  </div>
+  <div style="display:flex;gap:7px;justify-content:flex-end">
+    <button class="btn" onclick="closeModal('modalAddMember')">Cancel</button>
+    <button class="btn btn-primary" onclick="submitNewMember()">Add Member</button>
+  </div>
+</div></div>
+
+<!-- Member Status Modal -->
+<div class="overlay" id="modalMemberStatus"><div class="modal modal-sm">
+  <button class="mc" onclick="closeModal('modalMemberStatus')">✕</button>
+  <div class="mt" id="mStatusTitle">Manage Member</div>
+  <div style="font-size:12px;color:var(--tx2);margin-bottom:14px" id="mStatusSub"></div>
+  <button class="status-btn btn-success" onclick="setMemberStatus('active')"><strong>✅ Active</strong><span>Member has full access to Manthan</span></button>
+  <button class="status-btn btn-warn" onclick="setMemberStatus('inactive')"><strong>⏸ Inactive</strong><span>Member cannot post, comment or create topics</span></button>
+  <button class="status-btn btn-danger" onclick="setMemberStatus('deactivated')"><strong>🗑 Deactivate</strong><span>Permanently remove this member from Manthan</span></button>
+</div></div>
+
+<!-- Edit Modal -->
+<div class="overlay" id="modalEdit"><div class="modal">
+  <button class="mc" onclick="closeModal('modalEdit')">✕</button>
+  <div class="mt" id="mEditTitle">Edit</div>
+  <textarea class="fta" id="mEditText" style="min-height:100px"></textarea>
+  <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px">
+    <button class="btn" onclick="closeModal('modalEdit')">Cancel</button>
+    <button class="btn btn-primary" onclick="saveEdit()">Save Changes</button>
+  </div>
+</div></div>
+
+<!-- Poll Modal -->
+<div class="overlay" id="modalPoll"><div class="modal">
+  <button class="mc" onclick="closeModal('modalPoll')">✕</button>
+  <div class="mt">Create a Poll</div>
+  <div class="fg"><label class="fl">Poll Question *</label><input class="fi" id="pollQuestion" placeholder="What do you want to ask?"/></div>
+  <div class="fg">
+    <label class="fl">Options</label>
+    <div id="pollOptions">
+      <input class="fi" style="margin-bottom:6px" id="pollOpt1" placeholder="Option 1"/>
+      <input class="fi" style="margin-bottom:6px" id="pollOpt2" placeholder="Option 2"/>
+      <input class="fi" style="margin-bottom:6px" id="pollOpt3" placeholder="Option 3 (optional)"/>
+      <input class="fi" id="pollOpt4" placeholder="Option 4 (optional)"/>
+    </div>
+  </div>
+  <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:10px">
+    <button class="btn" onclick="closeModal('modalPoll')">Cancel</button>
+    <button class="btn btn-primary" onclick="submitPoll()">Add Poll to Comment</button>
+  </div>
+</div></div>
+
+
+<!-- Report Topic/Comment Modal -->
+<div class="overlay" id="modalReport"><div class="modal" style="width:420px">
+  <button class="mc" onclick="closeModal('modalReport')">✕</button>
+  <div class="mt" id="rptTitle">Report</div>
+  <div style="font-size:13px;color:var(--tx2);margin-bottom:14px" id="rptSubject"></div>
+  <div class="fg">
+    <label class="fl">Select a reason</label>
+    <button class="report-reason-btn" onclick="selectReason(this,'Inappropriate content')">🚫 Inappropriate content</button>
+    <button class="report-reason-btn" onclick="selectReason(this,'Spam or misleading')">📢 Spam or misleading</button>
+    <button class="report-reason-btn" onclick="selectReason(this,'Confidential information shared')">🔐 Confidential information shared</button>
+    <button class="report-reason-btn" onclick="selectReason(this,'Harassment or offensive language')">⚠️ Harassment or offensive language</button>
+    <button class="report-reason-btn" onclick="selectReason(this,'Other')">💬 Other</button>
+  </div>
+  <div class="fg" id="rptOtherWrap" style="display:none">
+    <label class="fl">Describe the issue</label>
+    <textarea class="fta" style="min-height:70px" id="rptOtherText" placeholder="Please describe the issue…"></textarea>
+  </div>
+  <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:6px">
+    <button class="btn" onclick="closeModal('modalReport')">Cancel</button>
+    <button class="btn" style="background:#bf360c;color:#fff;border-color:#bf360c" onclick="submitReport()">Submit Report</button>
+  </div>
+</div></div>
+
+<!-- ══ INVITE LINK MODAL (Admin only) ══ -->
+<div class="overlay" id="modalInviteLink"><div class="modal" style="width:520px">
+  <button class="mc" onclick="closeModal('modalInviteLink')">✕</button>
+  <div class="mt">🔗 Generate External Invite Link</div>
+  <div style="font-size:13px;color:var(--tx2);margin-bottom:16px">Create a shareable link for external partners, vendors or consultants. When they click the link, they will land directly on the email + OTP login — no password needed.</div>
+
+  <div class="fg"><label class="fl">Recipient Name (optional)</label>
+    <input class="fi" id="invRecipient" placeholder="e.g. Ravi Shetty / TCS Team"/>
+  </div>
+  <div class="fg"><label class="fl">Access Expiry</label>
+    <select class="fsel" id="invExpiry">
+      <option value="7">7 days</option>
+      <option value="14">14 days</option>
+      <option value="30">30 days</option>
+      <option value="0">No expiry</option>
+    </select>
+  </div>
+  <div class="fg"><label class="fl">Note for recipient (optional)</label>
+    <textarea class="fta" style="min-height:65px" id="invNote" placeholder="e.g. Please use this link to join Manthan and review the Motor Claims discussion…"></textarea>
+  </div>
+
+  <!-- Generated link area (hidden until generated) -->
+  <div id="inviteLinkResult" style="display:none">
+    <div style="height:0.5px;background:var(--bd3);margin:14px 0"></div>
+    <div style="font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px">✅ Invite Link Generated</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+      <input class="fi" id="inviteLinkBox" readonly style="font-size:12px;background:#f5f5f5;color:#1a5fa8;font-weight:500;cursor:pointer" onclick="this.select()"/>
+      <button class="btn btn-primary btn-sm" style="white-space:nowrap" onclick="copyInviteLink()">📋 Copy</button>
+    </div>
+    <!-- Email template -->
+    <div style="background:#f0f5ff;border:0.5px solid #b5d4f4;border-radius:var(--rm);padding:12px;font-size:12px;line-height:1.75">
+      <div style="font-weight:600;margin-bottom:6px;color:#1a3a5c">📧 Ready-to-send email template:</div>
+      <div id="inviteEmailTemplate" style="color:#1a1a1a;white-space:pre-wrap"></div>
+    </div>
+    <button class="btn btn-sm" style="margin-top:9px;width:100%" onclick="copyEmailTemplate()">📋 Copy Email Template</button>
+  </div>
+
+  <div style="display:flex;gap:7px;justify-content:flex-end;margin-top:16px" id="inviteGenBtnRow">
+    <button class="btn" onclick="closeModal('modalInviteLink')">Cancel</button>
+    <button class="btn btn-primary" onclick="generateInviteLink()">Generate Link →</button>
+  </div>
+</div></div>
+
+<!-- Disable Comments Confirm Modal -->
+<div class="overlay" id="modalDisableComments"><div class="modal" style="width:380px">
+  <button class="mc" onclick="closeModal('modalDisableComments')">✕</button>
+  <div class="mt" id="dcTitle">Disable Comments</div>
+  <div style="font-size:13px;color:var(--tx2);margin-bottom:20px" id="dcBody">Once disabled, members will no longer be able to post new comments on this topic. You can re-enable comments at any time.</div>
+  <div style="display:flex;gap:7px;justify-content:flex-end">
+    <button class="btn" onclick="closeModal('modalDisableComments')">Cancel</button>
+    <button class="btn" style="background:#e65100;color:#fff;border-color:#e65100" onclick="confirmDisableComments()">Disable Comments</button>
+  </div>
+</div></div>
+
+<script>
+// ══ DATA ══
+let currentUser=null,currentTopics=[],currentTopic=null;
+let comments={},editTarget=null,activeTeamId=null,activeMemberId=null;
+let taskAssigneeSelected=[];
+let pendingPermissionId=null,pendingPermissionTeamId=null;
+
+let categories=[
+  {id:'claims',label:'Claims Discussions'},{id:'uw',label:'Underwriting Discussions'},
+  {id:'reg',label:'Regulatory Updates'},{id:'issues',label:'Problems / Issues'},{id:'gen',label:'General Discussion'},
+];
+
+let members=[
+  {id:'m1',name:'Anil Sharma',   ini:'AS',email:'anil.sharma@bajajgeneral.com',  dept:'Claims — Motor',      role:'member',status:'active', bg:'#1a5fa8',type:'internal'},
+  {id:'m2',name:'Jenil Todkar',  ini:'JT',email:'jenil.todkar@bajajgeneral.com', dept:'IT & Systems',        role:'admin', status:'active', bg:'#7F77DD',type:'internal'},
+  {id:'m3',name:'Priya Mehta',   ini:'PM',email:'priya.mehta@bajajgeneral.com',  dept:'HR & Administration', role:'member',status:'active', bg:'#6a0dad',type:'internal'},
+  {id:'m4',name:'Rohit Kulkarni',ini:'RK',email:'rohit.k@bajajgeneral.com',      dept:'Finance & Accounts',  role:'member',status:'inactive',bg:'#0d47a1',type:'internal'},
+  {id:'m5',name:'Sneha Rao',     ini:'SR',email:'sneha.rao@bajajgeneral.com',    dept:'Underwriting',        role:'member',status:'active', bg:'#3B6D11',type:'internal'},
+  {id:'m6',name:'Vikas Gupta',   ini:'VG',email:'vikas.gupta@bajajgeneral.com',  dept:'Claims — Non-Motor',  role:'member',status:'active', bg:'#854F0B',type:'internal'},
+  {id:'m7',name:'Ravi Shetty',   ini:'RS',email:'ravi.shetty@partner.com',       dept:'External Partner',    role:'member',status:'active', bg:'#e65100',type:'external'},
+  {id:'m8',name:'Meera Joshi',   ini:'MJ',email:'meera.joshi@vendor.com',        dept:'External Vendor',     role:'member',status:'active', bg:'#5d4037',type:'external'},
+];
+
+let topics=[
+  {id:'MNT-001',title:'Claims Process Optimization Tips',cat:'claims',tags:['Claims','Best Practices'],author:'Anil Sharma',authorId:'m1',time:'Just now',views:325,comments:8,status:'open',pinned:true,body:'Streamlining the claims process is crucial for efficiency.\n\n1. Automate repetitive tasks\n2. Standardize documentation\n3. Improve customer communication\n4. Regular training on updated SOPs',visibility:'all',reactions:{'👍':4,'🎉':2,'❤️':1},commentsDisabled:false},
+  {id:'MNT-002',title:'New IRDAI Guidelines — Discussion',cat:'reg',tags:['IRDAI','Regulatory'],author:'Jenil Todkar',authorId:'m2',time:'1 hour ago',views:210,comments:5,status:'open',pinned:false,body:'IRDAI has issued new guidelines on motor insurance claim settlement.\n\n- Settlement within 30 days\n- Mandatory digital acknowledgement\n- New surveyor empanelment rules effective May 2024',visibility:'internal',reactions:{'👍':3},commentsDisabled:false},
+  {id:'MNT-003',title:'High TAT in Motor Claims — Root Cause',cat:'issues',tags:['TAT','Motor'],author:'Vikas Gupta',authorId:'m6',time:'3 hours ago',views:178,comments:12,status:'open',pinned:false,body:'Consistent increase in TAT for motor claims in Q1. Average up by 18%.\n\nBottlenecks:\n1. Surveyor availability in Tier-2 cities\n2. Delayed documentation from garages\n3. System downtime',visibility:'all',reactions:{'👍':7,'😮':2},commentsDisabled:false},
+  {id:'MNT-004',title:'Underwriting Norms for Electric Vehicles',cat:'uw',tags:['Underwriting','EV'],author:'Sneha Rao',authorId:'m5',time:'Yesterday',views:95,comments:3,status:'open',pinned:false,body:'EV adoption is rapid — our underwriting norms need revisiting.\n\n- Battery damage pricing?\n- IDV calculation for batteries?\n- Cyber risk for connected vehicles?',visibility:'all',reactions:{},commentsDisabled:false},
+  {id:'MNT-005',title:'Annual Team Outing — Suggestions',cat:'gen',tags:['General'],author:'Jenil Todkar',authorId:'m2',time:'2 days ago',views:67,comments:18,status:'open',pinned:false,body:'Planning annual team outing:\n1. Lonavala — 1N 2D\n2. Mahabaleshwar — 2N 3D\n3. Alibaug\n\nPlease vote!',visibility:'all',reactions:{'👍':9,'🎉':5},commentsDisabled:false},
+  {id:'MNT-006',title:'Fraud Detection in Health Claims',cat:'claims',tags:['Fraud','Health'],author:'Jenil Todkar',authorId:'m2',time:'1 week ago',views:203,comments:22,status:'closed',pinned:false,body:'Closed. Decision: ML-based fraud scoring for health claims above Rs.2L from Q2.',visibility:'all',reactions:{'👍':12},commentsDisabled:false},
+];
+
+let teams=[
+  {id:'t1',name:'Claims Processing Team',members:['m1','m2','m6','m3'],
+   tasks:[
+     {id:'tk1',name:'Review Q1 claims TAT report',prio:'High',due:'2026-04-20',assignees:['m1'],done:true,notes:'Focus on motor segment'},
+     {id:'tk2',name:'Update SOP for fraud cases',prio:'Medium',due:'2026-04-28',assignees:[],done:false,notes:''},
+   ],
+   permissions:[
+     {id:'p1',subj:'Access to claims portal reports section',by:'m1',details:'Need access to generate monthly TAT reports.',time:'2 hrs ago',status:'pending',attachments:[],remark:''},
+   ]
+  },
+  {id:'t2',name:'Underwriting Review Team',members:['m5','m4','m7'],
+   tasks:[
+     {id:'tk3',name:'Analyse new IRDAI circular',prio:'High',due:'2026-04-18',assignees:['m5'],done:false,notes:''},
+     {id:'tk4',name:'Update motor premium tables',prio:'Medium',due:'2026-04-30',assignees:[],done:true,notes:''},
+   ],
+   permissions:[]
+  },
+];
+
+let notifications=[
+  {id:'n1',text:'Admin pinned your topic "Claims Optimization Tips"',time:'2 min ago',read:false,type:'admin'},
+  {id:'n2',text:'Vikas Gupta commented on "High TAT in Motor Claims"',time:'15 min ago',read:false,type:'comment'},
+  {id:'n3',text:'Your topic "IRDAI Guidelines" was edited by Admin',time:'1 hr ago',read:true,type:'admin'},
+  {id:'n4',text:'You received a warning on your comment',time:'Yesterday',read:true,type:'warning'},
+  {id:'n5',text:'Anil Sharma commented on "Annual Team Outing"',time:'2 days ago',read:true,type:'comment'},
+];
+
+let userReactions={};  // topicId -> emoji
+let commentLikes={};   // commentId -> bool
+let visSelectedMembers=[],teamSelectedMembers=[];
+let pendingPollData=null;
+let reportTarget = null;   // {type:'topic'|'comment', id, topicId?, text}
+let selectedReportReason = '';
+let disableCommentsTopicId = null;
+
+
+// ══ HELPERS ══
+const isAdmin=()=>currentUser?.role==='admin';
+const isRCS=()=>currentUser?.rcs===true;
+const uName=()=>currentUser?.name||'';
+const uIni=()=>currentUser?.initials||'';
+const uBg=()=>currentUser?.bg||'#1a5fa8';
+const uType=()=>currentUser?.userType||'internal';
+function catClass(cat){return{claims:'tc',uw:'tu',reg:'tr',issues:'ti',gen:'tg'}[cat]||'tk';}
+function memberById(id){return members.find(m=>m.id===id);}
+function memberByName(n){return members.find(m=>m.name===n);}
+function openModal(id){document.getElementById(id).classList.add('show');}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+document.addEventListener('click',e=>{
+  document.querySelectorAll('.overlay.show').forEach(o=>{if(e.target===o)o.classList.remove('show');});
+  if(!e.target.closest('.nav-right'))document.querySelectorAll('.dd.show').forEach(d=>d.classList.remove('show'));
+});
+
+// ══ AUTH ══
+let otpTimerInterval = null;
+let generatedOTP = '123456'; // In production this is server-generated
+let pendingExtEmail = '';
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goToLoginScreen(){
+  showScreen('loginScreen');
+}
+
+function goToExtEmailScreen(){
+  document.getElementById('extEmailErr').style.display='none';
+  if(document.getElementById('extEmail')) document.getElementById('extEmail').value='';
+  showScreen('extEmailScreen');
+}
+
+// ── Internal / RCS login (password-based) ────────────────────────────────────
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  const err=document.getElementById('loginErr');
+  if(email==='admin@bajajgeneral.com'){
+    currentUser={name:'Jenil Todkar',initials:'JT',role:'admin',rcs:false,bg:'#7F77DD',userType:'internal',id:'m2',email:'jenil.todkar@bajajgeneral.com'};
+  } else if(email==='member@bajajgeneral.com'){
+    currentUser={name:'Anil Sharma',initials:'AS',role:'member',rcs:false,bg:'#1a5fa8',userType:'internal',id:'m1',email:'anil.sharma@bajajgeneral.com'};
+  } else if(email==='rcs.user@bajajgeneral.com'){
+    currentUser={name:'Priya Mehta',initials:'PM',role:'member',rcs:true,bg:'#6a0dad',userType:'internal',id:'m3',email:'priya.mehta@bajajgeneral.com'};
+  } else {
+    err.style.display='block'; return;
+  }
+  err.style.display='none';
+  boot();
+}
+
+// ── External OTP flow ─────────────────────────────────────────────────────────
+function sendOTP(){
+  const emailEl = document.getElementById('extEmail');
+  const email = emailEl.value.trim().toLowerCase();
+  const errEl = document.getElementById('extEmailErr');
+
+  // Validate: must be a valid email address (external users can have any domain)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!email || !emailRegex.test(email)){
+    errEl.style.display='block';
+    errEl.textContent='Please enter a valid email address.';
+    emailEl.focus(); return;
+  }
+  errEl.style.display='none';
+  pendingExtEmail = email;
+
+  // Simulate OTP generation (in production: call backend API → email OTP)
+  generatedOTP = '123456'; // Demo fixed OTP
+
+  // Show OTP screen
+  document.getElementById('otpEmailDisplay').textContent = email;
+  document.getElementById('otpEntryState').style.display='block';
+  document.getElementById('otpSuccessState').style.display='none';
+  document.getElementById('otpErr').style.display='none';
+  ['otp1','otp2','otp3','otp4','otp5','otp6'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.value=''; el.classList.remove('filled');
+  });
+  showScreen('extOTPScreen');
+  document.getElementById('otp1').focus();
+  startOTPTimer(60);
+}
+
+function otpInput(el, nextId){
+  // Only allow digits
+  el.value = el.value.replace(/[^0-9]/g,'');
+  el.classList.toggle('filled', el.value !== '');
+  if(el.value && nextId){
+    const next = document.getElementById(nextId);
+    if(next) next.focus();
+  }
+  // Auto-verify when all 6 filled
+  const vals=['otp1','otp2','otp3','otp4','otp5','otp6'].map(id=>document.getElementById(id).value);
+  if(vals.every(v=>v.length===1)) setTimeout(verifyOTP, 300);
+}
+
+function otpBack(e, el, prevId){
+  if(e.key==='Backspace' && !el.value && prevId){
+    const prev=document.getElementById(prevId);
+    if(prev){prev.value='';prev.classList.remove('filled');prev.focus();}
+  }
+}
+
+function verifyOTP(){
+  const entered=['otp1','otp2','otp3','otp4','otp5','otp6'].map(id=>document.getElementById(id).value).join('');
+  const errEl=document.getElementById('otpErr');
+  if(entered.length < 6){errEl.style.display='block';errEl.textContent='Please enter all 6 digits.';return;}
+  if(entered !== generatedOTP){
+    errEl.style.display='block';
+    errEl.textContent='Invalid OTP. Please check and try again.';
+    ['otp1','otp2','otp3','otp4','otp5','otp6'].forEach(id=>{
+      const el=document.getElementById(id);el.value='';el.classList.remove('filled');
+    });
+    document.getElementById('otp1').focus();
+    return;
+  }
+  errEl.style.display='none';
+  clearInterval(otpTimerInterval);
+
+  // OTP verified — show success animation then login
+  document.getElementById('otpEntryState').style.display='none';
+  document.getElementById('otpSuccessState').style.display='block';
+  setTimeout(()=>{
+    const bar=document.getElementById('loginProgress');
+    if(bar) bar.style.width='100%';
+  }, 100);
+
+  // Build user from email
+  const namePart = pendingExtEmail.split('@')[0];
+  const displayName = namePart.split('.').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+  const initials = namePart.split('.').map(w=>w[0]?.toUpperCase()||'').join('').slice(0,2)||'EU';
+
+  setTimeout(()=>{
+    currentUser = {
+      name: displayName,
+      initials: initials,
+      role: 'member',
+      rcs: false,
+      bg: '#e65100',
+      userType: 'external',
+      id: 'ext_'+Date.now(),
+      email: pendingExtEmail
+    };
+    boot();
+  }, 1800);
+}
+
+function resendOTP(){
+  generatedOTP = '123456';
+  document.getElementById('resendBtn').style.display='none';
+  document.getElementById('resendTimer').style.display='';
+  document.getElementById('otpErr').style.display='none';
+  ['otp1','otp2','otp3','otp4','otp5','otp6'].forEach(id=>{
+    const el=document.getElementById(id);el.value='';el.classList.remove('filled');
+  });
+  document.getElementById('otp1').focus();
+  startOTPTimer(60);
+  showToast('OTP resent to '+pendingExtEmail);
+}
+
+function startOTPTimer(seconds){
+  clearInterval(otpTimerInterval);
+  let s = seconds;
+  document.getElementById('timerCount').textContent=s;
+  document.getElementById('resendBtn').style.display='none';
+  document.getElementById('resendTimer').style.display='';
+  otpTimerInterval = setInterval(()=>{
+    s--;
+    const tc=document.getElementById('timerCount');
+    if(tc) tc.textContent=s;
+    if(s<=0){
+      clearInterval(otpTimerInterval);
+      const rb=document.getElementById('resendBtn');
+      const rt=document.getElementById('resendTimer');
+      if(rb) rb.style.display='';
+      if(rt) rt.style.display='none';
+    }
+  },1000);
+}
+
+function boot(){refreshCatSelect();renderCatList('');renderVisPicker('');showHome();}
+function logout(){
+  currentUser=null;
+  clearInterval(otpTimerInterval);
+  showScreen('loginScreen');
+}
+
+// ══ NAVBAR ══
+function buildTabs(activeId){
+  const tabs=[{id:'homeScreen',label:'Home',fn:'showHome()'},{id:'createTopicScreen',label:'+ Create Topic',fn:"goTo('createTopicScreen')"},{id:'teamsScreen',label:'Teams',fn:"goTo('teamsScreen')"}];
+  if(isAdmin()) tabs.push({id:'adminScreen',label:'Admin Panel',fn:"goTo('adminScreen')"});
+  return tabs.map(t=>`<div class="nav-tab${t.id===activeId?' active':''}" onclick="${t.fn}">${t.label}</div>`).join('');
+}
+function buildRight(){
+  const avCls=isAdmin()?'avatar adm':'avatar';
+  const rb=isAdmin()?'<span class="role-badge rb-admin">Admin</span>':'<span class="role-badge rb-member">Member</span>';
+  const utBadge=uType()==='external'?'<span class="ext-badge">External</span>':'<span class="int-badge">Internal</span>';
+  return `<div style="position:relative"><div class="icon-btn" id="notifBtn" onclick="toggleDD('notifDD',event)">🔔<div class="notif-dot" id="ndot"></div></div><div class="dd" id="notifDD" style="min-width:290px"></div></div>${rb}${utBadge}<span style="font-size:13px;color:var(--tx2);white-space:nowrap">${uName()}</span><div style="position:relative"><div class="${avCls}" style="background:${uBg()}" onclick="toggleDD('profileDD',event)">${uIni()}</div><div class="dd" id="profileDD" style="min-width:220px"></div></div>`;
+}
+function toggleDD(id,e){
+  e.stopPropagation();
+  const el=document.getElementById(id);
+  const wasOpen=el.classList.contains('show');
+  document.querySelectorAll('.dd.show').forEach(d=>d.classList.remove('show'));
+  if(!wasOpen){el.classList.add('show');if(id==='notifDD')renderNotifDD();else renderProfileDD();}
+}
+function injectNav(screenId){
+  ['homeNavTabs','detailNavTabs','createNavTabs','teamsNavTabs','adminNavTabs'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=buildTabs(screenId);});
+  ['homeNavRight','detailNavRight','createNavRight','teamsNavRight','adminNavRight'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=buildRight();});
+  updateNdot();
+  if(isRCS())document.querySelectorAll('#rcsLabel').forEach(e=>e.style.display='');
+}
+function updateNdot(){const u=notifications.filter(n=>!n.read).length;document.querySelectorAll('#ndot').forEach(d=>d.style.display=u?'block':'none');}
+
+// ══ NOTIFICATIONS ══
+function renderNotifDD(){
+  const dd=document.getElementById('notifDD');if(!dd)return;
+  const u=notifications.filter(n=>!n.read).length;
+  let h=`<div class="dd-head"><div class="dd-name">Notifications ${u?`<span style="background:#E24B4A;color:#fff;border-radius:20px;padding:1px 6px;font-size:10px">${u}</span>`:''}</div></div>`;
+  if(!notifications.length){h+='<div style="padding:18px;text-align:center;font-size:13px;color:var(--tx2)">No notifications</div>';}
+  else{h+=notifications.map(n=>{const ic=n.type==='warning'?'⚠️':n.type==='admin'?'🔧':n.type==='report'?'🚨':'💬';return`<div class="notif-item${n.read?'':' unread'}${n.type==='report'?' report':''}" onclick="markRead('${n.id}')"><div class="ni-text">${ic} ${n.text}</div><div class="ni-time">${n.time}</div></div>`;}).join('');h+=`<div style="padding:8px 14px;text-align:center"><button class="btn btn-sm" style="font-size:11px" onclick="markAllRead()">Mark all as read</button></div>`;}
+  dd.innerHTML=h;
+}
+function markRead(id){const n=notifications.find(x=>x.id===id);if(n)n.read=true;renderNotifDD();updateNdot();}
+function markAllRead(){notifications.forEach(n=>n.read=true);renderNotifDD();updateNdot();}
+function addNotif(text,type='admin'){notifications.unshift({id:'n'+Date.now(),text,time:'Just now',read:false,type});updateNdot();}
+
+// ══ PROFILE ══
+function renderProfileDD(){
+  const dd=document.getElementById('profileDD');if(!dd)return;
+  const emailLine = currentUser?.email ? `<div class="dd-sub">${currentUser.email}</div>` : '';
+  const authMethod = isRCS() ? '🔗 RCS SSO' : uType()==='external' ? '🔐 OTP Verified' : '🔑 Password';
+  dd.innerHTML=`<div class="dd-head"><div class="dd-name">${uName()}</div><div class="dd-sub">${isAdmin()?'Administrator':'Member'} · ${uType()==='external'?'External User':'Internal User'}${isRCS()?' · RCS':''}</div>${emailLine}<div class="dd-sub" style="margin-top:2px">${authMethod}</div></div><div class="dd-item">👤 My Profile</div><div class="dd-item">⚙️ Settings</div><div class="dd-item">📝 My Topics</div><div class="dd-item">🔔 Notification Preferences</div><div class="dd-sep"></div><div class="dd-item red" onclick="logout()">🚪 Log Out</div>`;
+}
+
+// ══ NAVIGATION ══
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  injectNav(id);
+  if(id==='teamsScreen'){refreshCatSelect();renderTeams();}
+  if(id==='adminScreen'){adminTab('dashboard',document.querySelector('#adminScreen .s-item'));}
+  if(id==='createTopicScreen'){refreshCatSelect();renderVisPicker('');}
+  window.scrollTo(0,0);
+}
+function showHome(){
+  currentTopics=getVisibleTopics();
+  goTo('homeScreen');
+  renderTopics(currentTopics);
+  renderTrending();
+  renderContribs();
+  updateStats();
+}
+
+// ══ VISIBILITY — filter topics based on user type ══
+function getVisibleTopics(){
+  return topics.filter(t=>{
+    if(t.visibility==='internal') return uType()==='internal'||isAdmin();
+    if(t.visibility==='external') return uType()==='external'||isAdmin();
+    if(t.visibility==='specific') return isAdmin()||(t.visibleTo&&t.visibleTo.includes(currentUser?.id));
+    return true;
+  });
+}
+
+// ══ CATEGORIES ══
+function refreshCatSelect(){
+  const sel=document.getElementById('newTopicCat');if(!sel)return;
+  sel.innerHTML='<option value="">Select category</option>'+[...categories].sort((a,b)=>a.label.localeCompare(b.label)).map(c=>`<option value="${c.id}">${c.label}</option>`).join('');
+}
+function addCategory(){
+  const inp=document.getElementById('newCatName');const label=inp.value.trim();if(!label)return;
+  const newId='cat_'+Date.now();
+  categories.push({id:newId,label});refreshCatSelect();renderCatList('');
+  document.getElementById('newTopicCat').value=newId;inp.value='';
+  alert(`Category "${label}" added!`);
+}
+let catDDOpen=false;
+function toggleCatDD(){catDDOpen=!catDDOpen;document.getElementById('catDD').classList.toggle('open',catDDOpen);document.getElementById('catArrow').textContent=catDDOpen?'▴':'▾';if(catDDOpen){document.getElementById('catSearch').value='';renderCatList('');}}
+function renderCatList(q){const el=document.getElementById('catList');if(!el)return;el.innerHTML=[...categories].sort((a,b)=>a.label.localeCompare(b.label)).filter(c=>c.label.toLowerCase().includes(q.toLowerCase())).map(c=>`<div class="cat-opt" onclick="pickCat('${c.id}','${c.label}')">${c.label}</div>`).join('');}
+function pickCat(id,label){catDDOpen=false;document.getElementById('catDD').classList.remove('open');document.getElementById('catArrow').textContent='▾';document.querySelectorAll('.sidebar .s-item').forEach(s=>s.classList.remove('active'));document.getElementById('sCatToggle').classList.add('active');document.getElementById('homeTitle').textContent=label;currentTopics=getVisibleTopics().filter(t=>t.cat===id);renderTopics(currentTopics);}
+
+// ══ TOPIC RENDER ══
+function renderTopics(list){
+  const el=document.getElementById('topicsList');if(!el)return;
+  if(!list.length){el.innerHTML='<div style="text-align:center;padding:36px;color:var(--tx2);font-size:13px">No topics found.</div>';return;}
+  el.innerHTML=list.map(t=>{
+    const adminRow=isAdmin()?`<div class="admin-act" style="margin-top:6px" onclick="event.stopPropagation()"><button class="btn btn-sm" onclick="pinTopic('${t.id}',event)">${t.pinned?'Unpin':'📌 Pin'}</button><button class="btn btn-sm" onclick="editTopicQuick('${t.id}',event)">✏️ Edit</button><button class="btn btn-sm btn-warn" onclick="hideTopic('${t.id}',event)">${t.status==='hidden'?'Unhide':'Hide'}</button><button class="btn btn-sm btn-warn" onclick="warnAuthor('${t.author}',event)">⚠️ Warn</button><button class="btn btn-sm btn-danger" onclick="deleteTopic('${t.id}',event)">Delete</button></div>`:'';
+    const visBadge=t.visibility==='specific'?`<span class="vis-tag">🔒 Private</span>`:t.visibility==='internal'?`<span class="int-badge">Internal</span>`:t.visibility==='external'?`<span class="ext-badge">External</span>`:'';
+    const rxCount=Object.values(t.reactions||{}).reduce((a,b)=>a+b,0);
+    const commDisabledBadge=t.commentsDisabled?'<span class="comments-off-label">🚫 Comments off</span>':'';
+    return `<div class="topic-card${t.pinned?' pinned':''}" onclick="openTopic('${t.id}')"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:11px"><div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;flex-wrap:wrap">${t.pinned?'<span style="font-size:12px">📌</span>':''}<span style="font-size:14px;font-weight:500">${t.title}</span><span class="sb ${t.status==='open'?'so':t.status==='hidden'?'sh':'sc'}">${t.status}</span>${visBadge}</div><div style="font-size:12px;color:var(--tx2);display:flex;gap:9px;flex-wrap:wrap"><span style="font-size:11px;color:#bbb">${t.id}</span><span>${t.author}</span><span>${t.time}</span><span>👁 ${t.views}</span><span>💬 ${t.comments}</span>${rxCount?`<span>⚡ ${rxCount} reactions</span>`:''}${commDisabledBadge}</div>${adminRow}</div><div style="display:flex;gap:4px;flex-wrap:wrap;align-items:flex-start;flex-shrink:0">${t.tags.map(tg=>`<span class="tag ${catClass(t.cat)}">${tg}</span>`).join('')}</div></div></div>`;
+  }).join('');
+}
+function updateStats(){
+  document.getElementById('stTotal').textContent=topics.length;
+  document.getElementById('stActive').textContent=topics.filter(t=>t.status==='open').length;
+  document.getElementById('stClosed').textContent=topics.filter(t=>t.status==='closed').length;
+}
+
+// ══ TRENDING — ensure exactly 5 by padding with closed topics if needed ══
+function renderTrending(){
+  const el=document.getElementById('trendingPanel');if(!el)return;
+  const sorted=[...topics].sort((a,b)=>(b.comments+b.views)-(a.comments+a.views)).slice(0,5);
+  el.innerHTML=sorted.map((t,i)=>`<div class="tr-item" onclick="openTopic('${t.id}')"><div class="tr-rank">${i+1}</div><div><div class="tr-title">${t.title}</div><div class="tr-meta">💬 ${t.comments} · 👁 ${t.views}</div></div></div>`).join('');
+}
+
+function renderContribs(){
+  const el=document.getElementById('contribPanel');if(!el)return;
+  const counts={};topics.forEach(t=>{counts[t.author]=(counts[t.author]||0)+t.comments+1;});
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  el.innerHTML=sorted.map(([name,sc])=>{const m=memberByName(name)||{ini:name.slice(0,2).toUpperCase(),bg:'#1a5fa8'};return`<div class="contrib-row"><div style="width:22px;height:22px;border-radius:50%;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:600">${m.ini}</div><span style="font-size:12px;flex:1">${name}</span><span style="font-size:11px;color:var(--tx2)">${sc} pts</span></div>`;}).join('');
+}
+
+// ══ FILTER / SEARCH / SORT ══
+function filterCat(cat,el){
+  catDDOpen=false;document.getElementById('catDD').classList.remove('open');document.getElementById('catArrow').textContent='▾';
+  document.querySelectorAll('.sidebar .s-item').forEach(s=>s.classList.remove('active'));if(el)el.classList.add('active');
+  const titles={all:'All Topics',active:'Active Topics',mycreated:'My Topics',subscribed:'Subscribed Topics',closed:'Closed Topics',pinned:'Pinned Topics'};
+  document.getElementById('homeTitle').textContent=titles[cat]||'Topics';
+  const vis=getVisibleTopics();
+  if(cat==='all')currentTopics=vis;
+  else if(cat==='active')currentTopics=vis.filter(t=>t.status==='open');
+  else if(cat==='closed')currentTopics=vis.filter(t=>t.status==='closed');
+  else if(cat==='pinned')currentTopics=vis.filter(t=>t.pinned);
+  else if(cat==='subscribed')currentTopics=vis.filter(t=>['MNT-001','MNT-003'].includes(t.id));
+  else if(cat==='mycreated')currentTopics=vis.filter(t=>t.author===uName());
+  renderTopics(currentTopics);
+}
+function searchTopics(q){if(!q){renderTopics(currentTopics);return;}const f=getVisibleTopics().filter(t=>t.title.toLowerCase().includes(q.toLowerCase())||t.id.toLowerCase().includes(q.toLowerCase())||t.tags.some(tg=>tg.toLowerCase().includes(q.toLowerCase())));renderTopics(f);}
+function sortTopics(by){const s=currentTopics.slice();if(by==='popular')s.sort((a,b)=>(b.views+b.comments)-(a.views+a.comments));else s.sort((a,b)=>topics.indexOf(a)-topics.indexOf(b));renderTopics(s);}
+
+// ══ TOPIC ACTIONS ══
+function pinTopic(id,e){e&&e.stopPropagation();const t=topics.find(x=>x.id===id);if(t)t.pinned=!t.pinned;renderTopics(currentTopics);}
+function hideTopic(id,e){e&&e.stopPropagation();const t=topics.find(x=>x.id===id);if(t)t.status=t.status==='hidden'?'open':'hidden';renderTopics(currentTopics);}
+function deleteTopic(id,e){e&&e.stopPropagation();if(!confirm('Delete this topic permanently?'))return;const i=topics.findIndex(x=>x.id===id);if(i>-1)topics.splice(i,1);currentTopics=currentTopics.filter(x=>x.id!==id);renderTopics(currentTopics);updateStats();addNotif('A topic was deleted by Admin');}
+function warnAuthor(name,e){e&&e.stopPropagation();alert(`⚠️ Warning issued to ${name}`);addNotif(`Warning issued to ${name}`,'warning');}
+function editTopicQuick(id,e){e&&e.stopPropagation();const t=topics.find(x=>x.id===id);if(!t)return;editTarget={type:'topic',id};document.getElementById('mEditTitle').textContent='Edit Topic: '+t.title;document.getElementById('mEditText').value=t.body;openModal('modalEdit');}
+function saveEdit(){
+  const val=document.getElementById('mEditText').value.trim();if(!val)return;
+  if(editTarget?.type==='topic'){const t=topics.find(x=>x.id===editTarget.id);if(t){t.body=val;addNotif(`Topic "${t.title}" was edited by Admin`,'admin');}closeModal('modalEdit');if(currentTopic?.id===editTarget.id)openTopic(editTarget.id);else renderTopics(currentTopics);}
+  else if(editTarget?.type==='comment'){const list=comments[editTarget.topicId];if(!list)return;const c=list.find(x=>x.id===editTarget.commentId);if(c)c.text=val;closeModal('modalEdit');renderComments(editTarget.topicId);}
+}
+
+// ══ TOPIC DETAIL ══
+function openTopic(id){
+  const t=topics.find(x=>x.id===id);if(!t)return;
+  currentTopic=t;
+  document.getElementById('detailId').textContent=t.id;
+  document.getElementById('detailTitle').textContent=t.title;
+  document.getElementById('detailTags').innerHTML=t.tags.map(tg=>`<span class="tag ${catClass(t.cat)}">${tg}</span>`).join('')+` <span class="sb ${t.status==='open'?'so':'sc'}">${t.status}</span>`+(t.visibility==='specific'?` <span class="vis-tag">🔒 Private</span>`:t.visibility==='internal'?` <span class="int-badge">Internal</span>`:t.visibility==='external'?` <span class="ext-badge">External</span>`:'');
+  document.getElementById('detailBody').innerHTML=t.body.split('\n').join('<br>');
+  document.getElementById('detailMeta').innerHTML=`By ${t.author} &nbsp;·&nbsp; ${t.time} &nbsp;·&nbsp; 👁 ${t.views} views &nbsp;·&nbsp; 💬 ${t.comments} comments`;
+  renderTopicReactions(t);
+  let btns=`<button class="btn btn-sm" id="subBtn" onclick="toggleSub()">☆ Subscribe</button><button class="btn-report btn-sm" onclick="openReportTopic('${t.id}')">⚑ Report</button>`;
+  if(isAdmin()){
+    btns+=` <button class="btn btn-sm" onclick="editTopicQuick('${t.id}',null)">✏️ Edit</button>`;
+    btns+=` <button class="btn btn-sm btn-warn" onclick="hideTopic('${t.id}',null)">${t.status==='hidden'?'Unhide':'Hide'}</button>`;
+    btns+=` <button class="btn btn-sm btn-warn" onclick="warnAuthor('${t.author}',null)">⚠️ Warn</button>`;
+    if(t.commentsDisabled){btns+=` <button class="btn btn-sm btn-success" onclick="toggleComments('${t.id}')">Enable Comments</button>`;}
+    else{btns+=` <button class="btn btn-sm btn-warn" onclick="openDisableComments('${t.id}')">🚫 Disable Comments</button>`;}
+    if(t.status!=='closed')btns+=` <button class="btn btn-sm btn-danger" onclick="closeTopic('${t.id}')">Close Topic</button>`;
+    else btns+=` <button class="btn btn-sm btn-success" onclick="reopenTopic('${t.id}')">Reopen</button>`;
+  } else if(t.authorId===currentUser?.id||t.author===uName()){
+    if(t.commentsDisabled){btns+=` <button class="btn btn-sm btn-success" onclick="toggleComments('${t.id}')">Enable Comments</button>`;}
+    else{btns+=` <button class="btn btn-sm btn-warn" onclick="openDisableComments('${t.id}')">🚫 Disable Comments</button>`;}
+    if(t.status!=='closed')btns+=` <button class="btn btn-sm btn-danger" onclick="closeTopic('${t.id}')">Close Topic</button>`;
+  }
+  document.getElementById('detailActionBtns').innerHTML=btns;
+  // Show comment input or disabled banner
+  const commentInputEl=document.getElementById('commentInput');
+  const existingBanner=document.getElementById('commentDisabledBanner');
+  if(existingBanner)existingBanner.remove();
+  if(t.status==='closed'){
+    commentInputEl.style.display='none';
+  } else if(t.commentsDisabled){
+    commentInputEl.style.display='none';
+    const banner=document.createElement('div');
+    banner.id='commentDisabledBanner';
+    banner.className='comments-disabled-banner';
+    banner.innerHTML='🚫 <strong>Comments are disabled</strong> for this topic by the author or admin.';
+    commentInputEl.parentNode.insertBefore(banner,commentInputEl);
+  } else {
+    commentInputEl.style.display='block';
+  }
+  document.getElementById('attachList').innerHTML='<span style="font-size:13px;color:var(--tx2)">No attachments yet. Be first to upload!</span>';
+  renderComments(id);
+  goTo('topicDetailScreen');
+}
+
+// ══ TOPIC REACTIONS ══
+const TOPIC_EMOJIS=['👍','❤️','🎉','😮','🤔','👏'];
+function renderTopicReactions(t){
+  const el=document.getElementById('topicReactions');if(!el)return;
+  const myRx=userReactions[t.id];
+  let html=TOPIC_EMOJIS.map(em=>{
+    const count=(t.reactions&&t.reactions[em])||0;
+    const active=myRx===em;
+    return `<button class="t-react${active?' active':''}" onclick="reactToTopic('${t.id}','${em}')">${em}${count?` <span style="font-size:11px">${count}</span>`:'<span style="font-size:11px;color:var(--tx2)"> React</span>'}</button>`;
+  }).join('');
+  el.innerHTML=html;
+}
+function reactToTopic(topicId,emoji){
+  const t=topics.find(x=>x.id===topicId);if(!t)return;
+  if(!t.reactions)t.reactions={};
+  const prev=userReactions[topicId];
+  if(prev===emoji){delete userReactions[topicId];t.reactions[emoji]=Math.max(0,(t.reactions[emoji]||1)-1);}
+  else{if(prev){t.reactions[prev]=Math.max(0,(t.reactions[prev]||1)-1);}userReactions[topicId]=emoji;t.reactions[emoji]=(t.reactions[emoji]||0)+1;}
+  renderTopicReactions(t);
+}
+
+function closeTopic(id){const t=topics.find(x=>x.id===id);if(!t)return;t.status='closed';addNotif(`Topic "${t.title}" was closed`,'admin');openTopic(id);}
+function reopenTopic(id){const t=topics.find(x=>x.id===id);if(!t)return;t.status='open';addNotif(`Topic "${t.title}" was reopened by Admin`,'admin');openTopic(id);}
+function reportTopic(){alert('Topic reported. Admin will review.');}
+function simulateAttach(){
+  const names=['claims_report.pdf','survey_data.xlsx','policy_update.docx','evidence.png'];
+  const name=names[Math.floor(Math.random()*names.length)];
+  const el=document.getElementById('attachList');
+  if(el.innerHTML.includes('No attachments'))el.innerHTML='';
+  el.innerHTML+=`<span style="display:inline-flex;align-items:center;gap:5px;background:#e8f0fb;border-radius:6px;padding:3px 9px;margin:3px;font-size:12px;color:#1a5fa8">📄 ${name} <span style="cursor:pointer" onclick="this.parentElement.remove()">×</span></span>`;
+}
+
+// ══ COMMENTS — with likes and polls ══
+function renderComments(id){
+  if(!comments[id])comments[id]=[
+    {id:'c1',author:'Vikas Gupta',ini:'VG',bg:'#854F0B',text:'Great points! CRM triggers can automate a lot of this.',time:'2 min ago',likes:3,type:'text'},
+    {id:'c2',author:'Anil Sharma',ini:'AS',bg:'#1a5fa8',text:'Agreed. Reducing TAT for high-value claims is the priority.',time:'5 min ago',likes:1,type:'text'},
+  ];
+  document.getElementById('commentsList').innerHTML=comments[id].map(c=>renderSingleComment(id,c)).join('');
+}
+
+function renderSingleComment(topicId,c){
+  const liked=commentLikes[c.id];
+  const adminBtns=isAdmin()?`<button class="btn btn-sm" onclick="editComment('${topicId}','${c.id}')" style="padding:2px 7px;font-size:11px">✏️</button><button class="btn btn-sm btn-warn" onclick="warnComment('${c.author}')" style="padding:2px 7px;font-size:11px">⚠️</button><button class="btn btn-sm btn-danger" onclick="deleteComment('${topicId}','${c.id}')" style="padding:2px 7px;font-size:11px">Delete</button><button class="btn btn-sm" onclick="hideComment(this)" style="padding:2px 7px;font-size:11px">Hide</button>`:'';
+  const safeAuthor=(c.author||'').replace(/'/g,'&#39;');
+  const reportCommentBtn=`<button class="btn-report" onclick="openReportComment('${topicId}','${c.id}','${safeAuthor}')" style="padding:2px 8px;font-size:11px;margin-left:auto">⚑ Report</button>`;
+
+  let bodyHtml='';
+  if(c.type==='poll'&&c.poll){
+    const total=c.poll.options.reduce((s,o)=>s+o.votes,0);
+    const myVote=c.poll.myVote;
+    bodyHtml=`<div class="poll-box"><div style="font-size:13px;font-weight:500;margin-bottom:10px">📊 ${c.poll.question}</div>
+      ${c.poll.options.map((o,i)=>{
+        const pct=total>0?Math.round((o.votes/total)*100):0;
+        return `<div class="poll-opt" onclick="votePoll('${topicId}','${c.id}',${i})">
+          <input type="radio" ${myVote===i?'checked':''} style="pointer-events:none"/>
+          <span style="flex:1;font-size:13px">${o.text}</span>
+          <div class="poll-bar-wrap"><div class="poll-bar" style="width:${pct}%"></div></div>
+          <span style="font-size:11px;color:var(--tx2);min-width:30px;text-align:right">${pct}%</span>
+        </div>`;
+      }).join('')}
+      <div style="font-size:11px;color:var(--tx2);margin-top:6px">${total} vote${total!==1?'s':''}</div>
+    </div>`;
+  } else {
+    bodyHtml=`<div style="font-size:13px;line-height:1.6" id="ctxt_${c.id}">${c.text}</div>`;
+  }
+
+  return `<div class="cb" id="cb_${c.id}">
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px">
+      <div class="ca" style="background:${c.bg}">${c.ini}</div>
+      <span style="font-size:13px;font-weight:500">${c.author}</span>
+      <span style="font-size:11px;color:var(--tx2);margin-left:3px">${c.time}</span>
+      <div style="display:flex;gap:4px;margin-left:auto">${adminBtns||''}${reportCommentBtn}</div>
+    </div>
+    ${bodyHtml}
+    <div class="reaction-bar">
+      <button class="like-btn${liked?' liked':''}" onclick="likeComment('${topicId}','${c.id}')">👍 ${liked?'Liked':'Like'} ${c.likes?`<span style="font-size:11px">${c.likes}</span>`:''}
+      </button>
+      ${['😊','🙌','💯','🔥'].map(em=>`<button class="react-btn" onclick="reactComment('${topicId}','${c.id}','${em}')">${em}</button>`).join('')}
+    </div>
+  </div>`;
+}
+
+function likeComment(topicId,commentId){
+  const list=comments[topicId];if(!list)return;
+  const c=list.find(x=>x.id===commentId);if(!c)return;
+  if(commentLikes[commentId]){commentLikes[commentId]=false;c.likes=Math.max(0,(c.likes||1)-1);}
+  else{commentLikes[commentId]=true;c.likes=(c.likes||0)+1;}
+  renderComments(topicId);
+}
+
+function reactComment(topicId,commentId,emoji){
+  const list=comments[topicId];if(!list)return;
+  const c=list.find(x=>x.id===commentId);if(!c)return;
+  if(!c.reactCount)c.reactCount={};
+  c.reactCount[emoji]=(c.reactCount[emoji]||0)+1;
+  renderComments(topicId);
+}
+
+function votePoll(topicId,commentId,optIndex){
+  const list=comments[topicId];if(!list)return;
+  const c=list.find(x=>x.id===commentId);if(!c||!c.poll)return;
+  if(c.poll.myVote!==undefined)c.poll.options[c.poll.myVote].votes=Math.max(0,c.poll.options[c.poll.myVote].votes-1);
+  c.poll.myVote=optIndex;c.poll.options[optIndex].votes++;
+  renderComments(topicId);
+}
+
+function addComment(){
+  const text=document.getElementById('newComment').value.trim();
+  const cid='c'+Date.now();
+  if(pendingPollData){
+    comments[currentTopic.id].unshift({id:cid,author:uName(),ini:uIni(),bg:uBg(),text:'',time:'Just now',likes:0,type:'poll',poll:pendingPollData});
+    pendingPollData=null;
+  } else {
+    if(!text)return;
+    comments[currentTopic.id].unshift({id:cid,author:uName(),ini:uIni(),bg:uBg(),text,time:'Just now',likes:0,type:'text'});
+  }
+  document.getElementById('newComment').value='';
+  renderComments(currentTopic.id);
+  addNotif(`${uName()} commented on "${currentTopic.title}"`,'comment');
+}
+
+function editComment(topicId,commentId){const list=comments[topicId];if(!list)return;const c=list.find(x=>x.id===commentId);if(!c)return;editTarget={type:'comment',topicId,commentId};document.getElementById('mEditTitle').textContent='Edit Comment';document.getElementById('mEditText').value=c.text;openModal('modalEdit');}
+function deleteComment(topicId,commentId){if(!comments[topicId])return;comments[topicId]=comments[topicId].filter(c=>c.id!==commentId);renderComments(topicId);}
+function warnComment(author){alert(`⚠️ Warning issued to ${author}`);addNotif(`Warning issued to ${author} on a comment`,'warning');}
+function hideComment(btn){const cb=btn.closest('.cb');cb.style.opacity='0.35';btn.textContent='Unhide';btn.onclick=()=>{cb.style.opacity='1';btn.textContent='Hide';btn.onclick=()=>hideComment(btn);};}
+
+let subbed=false;
+function toggleSub(){subbed=!subbed;const btn=document.getElementById('subBtn');if(!btn)return;btn.textContent=subbed?'★ Subscribed':'☆ Subscribe';btn.style.background=subbed?'#e8f0fb':'';btn.style.color=subbed?'#1a5fa8':'';}
+
+// ══ POLL MODAL ══
+function openPollModal(){document.getElementById('pollQuestion').value='';['pollOpt1','pollOpt2','pollOpt3','pollOpt4'].forEach(id=>document.getElementById(id).value='');openModal('modalPoll');}
+function submitPoll(){
+  const q=document.getElementById('pollQuestion').value.trim();if(!q){alert('Enter a poll question.');return;}
+  const opts=['pollOpt1','pollOpt2','pollOpt3','pollOpt4'].map(id=>document.getElementById(id).value.trim()).filter(Boolean);
+  if(opts.length<2){alert('Please add at least 2 options.');return;}
+  pendingPollData={question:q,options:opts.map(t=>({text:t,votes:0})),myVote:undefined};
+  closeModal('modalPoll');
+  document.getElementById('newComment').value='[Poll attached — click Post Comment to publish]';
+}
+
+// ══ VISIBILITY PICKER ══
+function toggleVisPicker(val){document.getElementById('visPickerWrap').style.display=val==='specific'?'block':'none';if(val!=='specific')visSelectedMembers=[];}
+function renderVisPicker(q){
+  const el=document.getElementById('visPickerList');if(!el)return;
+  const list=[...members].sort((a,b)=>a.name.localeCompare(b.name)).filter(m=>m.name.toLowerCase().includes(q.toLowerCase()));
+  el.innerHTML=list.map(m=>{const sel=visSelectedMembers.includes(m.id);return`<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;cursor:pointer" onclick="toggleVisMem('${m.id}')"><input type="checkbox" ${sel?'checked':''} style="pointer-events:none"/><span style="font-size:13px;flex:1">${m.name}</span><span class="${m.type==='external'?'ext-badge':'int-badge'}">${m.type}</span></div>`;}).join('');
+  const chips=document.getElementById('visChips');if(!chips)return;
+  chips.innerHTML=visSelectedMembers.map(id=>{const m=memberById(id);if(!m)return'';return`<span class="chip">${m.name}<button onclick="toggleVisMem('${id}')">×</button></span>`;}).join('');
+}
+function toggleVisMem(id){const i=visSelectedMembers.indexOf(id);if(i>-1)visSelectedMembers.splice(i,1);else visSelectedMembers.push(id);const q=document.querySelector('#visPickerWrap input')?.value||'';renderVisPicker(q);}
+
+// ══ PUBLISH TOPIC ══
+function publishTopic(){
+  const title=document.getElementById('newTopicTitle').value.trim();
+  const cat=document.getElementById('newTopicCat').value;
+  const body=document.getElementById('newTopicBody').value.trim();
+  const vis=document.getElementById('visibilitySel').value;
+  if(!title||!cat||!body){alert('Please fill in Title, Category, and Discussion.');return;}
+  const tags=document.getElementById('newTopicTags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const catObj=categories.find(c=>c.id===cat);
+  const newId='MNT-'+(topics.length+1).toString().padStart(3,'0');
+  const commDisabled=document.getElementById('newTopicDisableComments')?.checked||false;
+  topics.unshift({id:newId,title,cat,tags:tags.length?tags:[catObj?.label||cat],author:uName(),authorId:currentUser?.id||'',time:'Just now',views:1,comments:0,status:'open',pinned:false,body,visibility:vis,visibleTo:vis==='specific'?[...visSelectedMembers]:null,reactions:{},commentsDisabled:commDisabled});
+  ['newTopicTitle','newTopicTags','newTopicBody'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('newTopicCat').value='';
+  document.getElementById('visibilitySel').value='all';
+  document.getElementById('visPickerWrap').style.display='none';
+  visSelectedMembers=[];
+  showHome();
+}
+
+// ══ TEAMS ══
+function renderTeams(){
+  const topBtn=document.getElementById('teamsTopBtn');
+  if(topBtn)topBtn.innerHTML=isAdmin()?`<button class="btn btn-primary btn-sm" onclick="openNewTeamModal()">+ New Team</button>`:'';
+  const grid=document.getElementById('teamsGrid');if(!grid)return;
+  grid.innerHTML=teams.map(team=>{
+    const mNames=team.members.map(id=>{const m=memberById(id);return m?m.name.split(' ')[0]:'?';}).join(', ');
+    const taskHtml=team.tasks.map(tk=>{
+      const asgns=tk.assignees&&tk.assignees.length?tk.assignees.map(id=>memberById(id)?.name?.split(' ')[0]||'?').join(', '):'Team';
+      const pc=tk.prio==='High'?'ph':tk.prio==='Low'?'pl':'pm';
+      return `<div class="task-row"><input type="checkbox" ${tk.done?'checked':''} onchange="toggleTask('${team.id}','${tk.id}',this.checked)" style="cursor:pointer;flex-shrink:0;margin-top:2px"/><div style="flex:1"><div style="${tk.done?'text-decoration:line-through;color:var(--tx2)':'color:var(--tx)'}">${tk.name}</div><div style="font-size:11px;color:var(--tx2);margin-top:2px">→ ${asgns} · ${tk.prio} ${tk.due?'· Due: '+tk.due:''}</div></div></div>`;
+    }).join('')||'<div style="font-size:12px;color:var(--tx2);padding:4px 0">No tasks yet.</div>';
+
+    const addTaskBtn=isAdmin()?`<button class="btn btn-sm" style="margin-top:9px" onclick="openAddTask('${team.id}')">+ Add Task</button>`:'';
+
+    // PERMISSIONS (renamed from approvals)
+    const pending=team.permissions.filter(p=>p.status==='pending');
+    const permHtml=team.permissions.map(p=>{
+      const m=memberById(p.by);const byName=m?m.name:p.by;
+      const acts=isAdmin()&&p.status==='pending'
+        ?`<button class="btn btn-sm btn-success" onclick="openGrantReject('${team.id}','${p.id}')">Review</button>`
+        :`<span class="sb ${p.status==='granted'?'so':'sc'}">${p.status}</span>`;
+      const remarkHtml=p.remark?`<div class="remark-box">📝 Admin remark: ${p.remark}</div>`:'';
+      const attachHtml=p.attachments&&p.attachments.length?`<div style="margin-top:4px">${p.attachments.map(a=>`<span style="font-size:11px;background:#e8f0fb;border-radius:4px;padding:2px 6px;margin-right:4px;color:#1a5fa8">📎 ${a}</span>`).join('')}</div>`:'';
+      return `<div style="border:0.5px solid var(--bd3);border-radius:var(--rm);padding:9px 11px;margin-bottom:7px;font-size:12px"><div style="font-weight:500;margin-bottom:2px">${p.subj}</div><div style="color:var(--tx2);margin-bottom:6px">By ${byName} · ${p.time}</div>${attachHtml}${remarkHtml}<div style="display:flex;gap:6px;margin-top:6px">${acts}</div></div>`;
+    }).join('')||'<div style="font-size:12px;color:var(--tx2);padding:4px 0">No permission requests yet.</div>';
+
+    const reqPermBtn=!isAdmin()?`<button class="btn btn-sm btn-primary" style="margin-top:9px" onclick="openPermissionModal('${team.id}')">+ Request Permission</button>`:'';
+
+    return `<div class="team-card"><div class="flex-b" style="margin-bottom:7px"><span style="font-size:14px;font-weight:600">${team.name}</span><span class="tag tc">${team.members.length} members</span></div><div style="font-size:12px;color:var(--tx2);margin-bottom:9px">👥 ${mNames}</div><div class="divider"></div><div style="font-size:12px;font-weight:600;margin:8px 0 5px;color:var(--tx2)">TASKS</div>${taskHtml}${addTaskBtn}<div class="divider"></div><div style="font-size:12px;font-weight:600;margin:8px 0 5px;color:var(--tx2)">PERMISSIONS ${pending.length?`<span style="background:#E24B4A;color:#fff;border-radius:20px;padding:1px 5px;font-size:10px">${pending.length}</span>`:''}</div>${permHtml}${reqPermBtn}</div>`;
+  }).join('');
+}
+
+function toggleTask(teamId,taskId,done){const team=teams.find(t=>t.id===teamId);if(!team)return;const tk=team.tasks.find(t=>t.id===taskId);if(tk)tk.done=done;}
+
+function openNewTeamModal(){teamSelectedMembers=[];document.getElementById('mTeamName').value='';renderTeamMemberList('');openModal('modalNewTeam');}
+function renderTeamMemberList(q){
+  const el=document.getElementById('teamMemberPickList');if(!el)return;
+  const sorted=[...members].sort((a,b)=>a.name.localeCompare(b.name)).filter(m=>m.name.toLowerCase().includes(q.toLowerCase()));
+  el.innerHTML=sorted.map(m=>{const sel=teamSelectedMembers.includes(m.id);return`<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer" onclick="toggleTeamMem('${m.id}')"><input type="checkbox" ${sel?'checked':''} style="pointer-events:none"/><span style="font-size:13px;flex:1">${m.name}</span><span class="${m.type==='external'?'ext-badge':'int-badge'}">${m.type}</span></div>`;}).join('');
+  const chips=document.getElementById('teamMemberChips');if(!chips)return;
+  chips.innerHTML=teamSelectedMembers.map(id=>{const m=memberById(id);if(!m)return'';return`<span class="chip">${m.name}<button onclick="toggleTeamMem('${id}')">×</button></span>`;}).join('');
+}
+function toggleTeamMem(id){const i=teamSelectedMembers.indexOf(id);if(i>-1)teamSelectedMembers.splice(i,1);else teamSelectedMembers.push(id);const q=document.getElementById('teamMemberSearch')?.value||'';renderTeamMemberList(q);}
+function createTeam(){const name=document.getElementById('mTeamName').value.trim();if(!name){alert('Enter a team name.');return;}teams.push({id:'t'+Date.now(),name,members:[...teamSelectedMembers],tasks:[],permissions:[]});closeModal('modalNewTeam');renderTeams();}
+
+// ══ TASK — multi-select assignees ══
+let taskForTeam=null;
+function openAddTask(teamId){
+  taskForTeam=teamId;taskAssigneeSelected=[];
+  const team=teams.find(t=>t.id===teamId);
+  document.getElementById('mTaskName').value='';document.getElementById('mTaskNotes').value='';document.getElementById('mTaskDue').value='';
+  const el=document.getElementById('taskAssigneeList');
+  if(el&&team){
+    el.innerHTML=team.members.map(id=>{const m=memberById(id);if(!m)return'';return`<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer" onclick="toggleTaskAssignee('${m.id}')"><input type="checkbox" id="tach_${m.id}" style="pointer-events:none"/><span style="font-size:13px">${m.name}</span></div>`;}).join('');
+  }
+  document.getElementById('taskAssigneeChips').innerHTML='';
+  openModal('modalAddTask');
+}
+function toggleTaskAssignee(id){
+  const i=taskAssigneeSelected.indexOf(id);
+  if(i>-1)taskAssigneeSelected.splice(i,1);else taskAssigneeSelected.push(id);
+  const cb=document.getElementById('tach_'+id);if(cb)cb.checked=taskAssigneeSelected.includes(id);
+  document.getElementById('taskAssigneeChips').innerHTML=taskAssigneeSelected.map(tid=>{const m=memberById(tid);return m?`<span class="chip">${m.name}<button onclick="toggleTaskAssignee('${tid}')">×</button></span>`:''}).join('');
+}
+function submitTask(){
+  const name=document.getElementById('mTaskName').value.trim();if(!name){alert('Enter a task name.');return;}
+  const team=teams.find(t=>t.id===taskForTeam);if(!team)return;
+  team.tasks.push({id:'tk'+Date.now(),name,prio:document.getElementById('mTaskPrio').value,due:document.getElementById('mTaskDue').value,assignees:[...taskAssigneeSelected],done:false,notes:document.getElementById('mTaskNotes').value});
+  closeModal('modalAddTask');renderTeams();
+}
+
+// ══ PERMISSIONS (renamed from Approvals) ══
+let permissionForTeam=null;
+function openPermissionModal(teamId){permissionForTeam=teamId;document.getElementById('mPermSubject').value='';document.getElementById('mPermDetails').value='';document.getElementById('permAttachList').innerHTML='';openModal('modalPermission');}
+function simulatePermAttach(){const names=['policy_doc.pdf','screenshot.png','request_form.pdf'];const name=names[Math.floor(Math.random()*names.length)];const el=document.getElementById('permAttachList');el.innerHTML+=`<span style="display:inline-flex;align-items:center;gap:5px;background:#e8f0fb;border-radius:6px;padding:3px 9px;margin:3px;font-size:12px;color:#1a5fa8">📎 ${name} <span style="cursor:pointer" onclick="this.parentElement.remove()">×</span></span>`;}
+function submitPermission(){
+  const subj=document.getElementById('mPermSubject').value.trim();if(!subj){alert('Enter a subject.');return;}
+  const team=teams.find(t=>t.id===permissionForTeam);if(!team)return;
+  const attachEls=document.querySelectorAll('#permAttachList span');
+  const attachments=[...attachEls].map(el=>el.textContent.replace('×','').trim());
+  team.permissions.push({id:'p'+Date.now(),subj,by:currentUser?.id||'',details:document.getElementById('mPermDetails').value,time:'Just now',status:'pending',attachments,remark:''});
+  closeModal('modalPermission');addNotif('New permission request submitted','admin');renderTeams();
+}
+
+function openGrantReject(teamId,permId){
+  pendingPermissionId=permId;pendingPermissionTeamId=teamId;
+  const team=teams.find(t=>t.id===teamId);const p=team?.permissions.find(x=>x.id===permId);
+  if(!p)return;
+  document.getElementById('grTitle').textContent='Review Permission Request';
+  document.getElementById('grDetail').innerHTML=`<strong>${p.subj}</strong><br><span style="font-size:12px;color:var(--tx2)">By ${memberById(p.by)?.name||p.by} · ${p.time}</span>${p.details?`<br><br>${p.details}`:''}`;
+  document.getElementById('grRemarks').value='';
+  openModal('modalGrantReject');
+}
+function doGrantReject(status){
+  const team=teams.find(t=>t.id===pendingPermissionTeamId);if(!team)return;
+  const p=team.permissions.find(x=>x.id===pendingPermissionId);if(!p)return;
+  p.status=status;p.remark=document.getElementById('grRemarks').value.trim();
+  closeModal('modalGrantReject');
+  addNotif(`Permission request ${status==='granted'?'Granted ✅':'Rejected ❌'}`,'admin');
+  renderTeams();
+}
+
+// ══ ADMIN TABS ══
+function adminTab(tab,el){
+  document.querySelectorAll('#adminScreen .sidebar .s-item').forEach(s=>s.classList.remove('active'));if(el)el.classList.add('active');
+  const c=document.getElementById('adminContent');if(!c)return;
+
+  if(tab==='dashboard'){
+    const recRows=topics.slice(0,6).map(t=>`<tr style="border-top:0.5px solid var(--bd3);cursor:pointer" onclick="openTopicFromAdmin('${t.id}')"><td style="padding:8px;color:#1a5fa8;text-decoration:underline">${t.title}</td><td style="padding:8px;font-size:12px">${t.author}</td><td style="padding:8px"><span class="tag ${catClass(t.cat)}" style="font-size:10px">${t.cat}</span></td><td style="padding:8px"><span class="sb ${t.status==='open'?'so':'sc'}">${t.status}</span></td></tr>`).join('');
+    c.innerHTML=`<div class="pg-title">Admin Dashboard</div><div class="admin-stat-grid"><div class="admin-card"><div style="font-size:12px;color:var(--tx2);margin-bottom:3px">Total Topics</div><div class="stat-big">${topics.length}</div></div><div class="admin-card"><div style="font-size:12px;color:var(--tx2);margin-bottom:3px">Active Topics</div><div class="stat-big" style="color:#2d6a0f">${topics.filter(t=>t.status==='open').length}</div></div><div class="admin-card"><div style="font-size:12px;color:var(--tx2);margin-bottom:3px">Members</div><div class="stat-big">${members.length}</div></div></div><div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px;margin-bottom:13px"><div class="sec-head">Recent Topics <span style="font-size:11px;font-weight:400;color:var(--tx2)">(click to open)</span></div><table style="width:100%;font-size:12px;border-collapse:collapse"><thead><tr style="color:var(--tx2)"><th style="text-align:left;padding:6px 8px;font-weight:500">Title</th><th style="padding:6px 8px;font-weight:500;text-align:left">Author</th><th style="padding:6px 8px;font-weight:500;text-align:left">Category</th><th style="padding:6px 8px;font-weight:500;text-align:left">Status</th></tr></thead><tbody>${recRows}</tbody></table></div>`;
+  }
+
+  else if(tab==='topics'){
+    // search bar added here
+    c.innerHTML=`<div class="pg-title">Manage Topics</div>
+      <input class="fi" style="max-width:340px;margin-bottom:13px" placeholder="Search topics…" oninput="filterAdminTopics(this.value)" id="adminTopicSearch"/>
+      <div id="adminTopicsTable"></div>`;
+    renderAdminTopicsTable('');
+  }
+
+  else if(tab==='users'){renderUserManagement('');}
+
+  else if(tab==='audit'){
+    const logs=[{action:'Pinned topic "Claims Optimization Tips"',by:'Jenil Todkar',time:'Today 10:15 AM'},{action:'Deleted topic "Outdated Motor Policy"',by:'Jenil Todkar',time:'Yesterday 4:30 PM'},{action:'Added member Rohit Kulkarni',by:'Jenil Todkar',time:'Apr 13 2:00 PM'},{action:'Granted permission to Anil Sharma',by:'Jenil Todkar',time:'Apr 12 11:45 AM'},{action:'Warned Anil Sharma on a comment',by:'Jenil Todkar',time:'Apr 10 3:20 PM'}];
+    c.innerHTML=`<div class="pg-title">Audit Logs</div><div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px"><div style="display:flex;justify-content:flex-end;margin-bottom:9px"><button class="btn btn-sm">⬇ Export CSV</button></div>${logs.map(l=>`<div style="display:flex;gap:11px;padding:8px 0;border-bottom:0.5px solid var(--bd3);font-size:13px"><span style="flex:1">${l.action}</span><span style="color:var(--tx2);white-space:nowrap;font-size:12px">${l.by} · ${l.time}</span></div>`).join('')}</div>`;
+  }
+}
+
+function filterAdminTopics(q){renderAdminTopicsTable(q);}
+function renderAdminTopicsTable(q){
+  const el=document.getElementById('adminTopicsTable');if(!el)return;
+  const filtered=topics.filter(t=>!q||t.title.toLowerCase().includes(q.toLowerCase())||t.author.toLowerCase().includes(q.toLowerCase()));
+  const rows=filtered.map(t=>`<tr style="border-top:0.5px solid var(--bd3)"><td style="padding:7px 8px;color:#1a5fa8;cursor:pointer;text-decoration:underline;font-size:12px" onclick="openTopicFromAdmin('${t.id}')">${t.title}</td><td style="padding:7px 8px;font-size:12px">${t.author}</td><td style="padding:7px 8px"><span class="tag ${catClass(t.cat)}" style="font-size:10px">${t.cat}</span></td><td style="padding:7px 8px"><span class="sb ${t.status==='open'?'so':t.status==='hidden'?'sh':'sc'}">${t.status}</span></td><td style="padding:7px 8px"><div class="admin-act"><button class="btn btn-sm" onclick="adPinTopic('${t.id}')">${t.pinned?'Unpin':'Pin'}</button><button class="btn btn-sm" onclick="adEditTopic('${t.id}')">Edit</button><button class="btn btn-sm btn-warn" onclick="adHideTopic('${t.id}')">${t.status==='hidden'?'Unhide':'Hide'}</button><button class="btn btn-sm btn-warn" onclick="warnAuthor('${t.author}',null)">Warn</button>${t.commentsDisabled?`<button class="btn btn-sm btn-success" onclick="adToggleComments('${t.id}')">Enable Cmts</button>`:`<button class="btn btn-sm btn-warn" onclick="adToggleComments('${t.id}')">Disable Cmts</button>`}${t.status==='closed'?`<button class="btn btn-sm btn-success" onclick="adReopenTopic('${t.id}')">Reopen</button>`:''}<button class="btn btn-sm btn-danger" onclick="adDelTopic('${t.id}')">Delete</button></div></td></tr>`).join('');
+  el.innerHTML=`<div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px;overflow-x:auto"><table style="width:100%;font-size:12px;border-collapse:collapse;min-width:720px"><thead><tr style="color:var(--tx2);background:#fafafa"><th style="text-align:left;padding:7px 8px;font-weight:500">Title</th><th style="padding:7px 8px;font-weight:500;text-align:left">Author</th><th style="padding:7px 8px;font-weight:500;text-align:left">Cat</th><th style="padding:7px 8px;font-weight:500;text-align:left">Status</th><th style="padding:7px 8px;font-weight:500;text-align:left">Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function openTopicFromAdmin(id){openTopic(id);}
+
+function renderUserManagement(searchQ){
+  const c=document.getElementById('adminContent');if(!c)return;
+  const sorted=[...members].sort((a,b)=>a.name.localeCompare(b.name)).filter(m=>!searchQ||m.name.toLowerCase().includes(searchQ.toLowerCase())||m.email.toLowerCase().includes(searchQ.toLowerCase())||m.dept.toLowerCase().includes(searchQ.toLowerCase()));
+  c.innerHTML=`<div class="pg-title">User Management</div><div style="display:flex;gap:10px;margin-bottom:13px;align-items:center"><input class="fi" style="max-width:280px" placeholder="Search members…" value="${searchQ}" oninput="renderUserManagement(this.value)"/><button class="btn btn-primary btn-sm" onclick="openModal('modalAddMember')">+ Add Member</button><button class="btn btn-sm" style="border-color:#e65100;color:#e65100;white-space:nowrap" onclick="openInviteLinkModal()">🔗 Generate Invite Link</button></div><div style="background:var(--bg);border:0.5px solid var(--bd3);border-radius:var(--rl);padding:13px"><div style="font-size:12px;color:var(--tx2);margin-bottom:10px">${sorted.length} members · alphabetical order</div>${sorted.map(m=>`<div class="member-row" onclick="openMemberStatus('${m.id}')"><div style="width:26px;height:26px;border-radius:50%;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:600">${m.ini}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500">${m.name}</div><div style="font-size:11px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.email} · ${m.dept}</div></div><span class="${m.type==='external'?'ext-badge':'int-badge'}">${m.type}</span><span class="role-badge ${m.role==='admin'?'rb-admin':'rb-member'}" style="margin-left:4px">${m.role}</span><div class="dot ${m.status==='active'?'dot-a':m.status==='inactive'?'dot-i':'dot-d'}" title="${m.status}" style="margin-left:4px"></div></div>`).join('')}</div>`;
+}
+
+function openMemberStatus(id){activeMemberId=id;const m=memberById(id);if(!m)return;document.getElementById('mStatusTitle').textContent=m.name;document.getElementById('mStatusSub').textContent=`${m.dept} · ${m.type==='external'?'External':'Internal'} · Current status: ${m.status}`;openModal('modalMemberStatus');}
+function setMemberStatus(status){
+  const m=memberById(activeMemberId);if(!m)return;
+  if(status==='deactivated'){if(!confirm(`Remove ${m.name} permanently?`))return;const i=members.findIndex(x=>x.id===activeMemberId);if(i>-1)members.splice(i,1);}
+  else{m.status=status;}
+  closeModal('modalMemberStatus');renderUserManagement('');
+}
+function submitNewMember(){
+  const name=document.getElementById('mMemName').value.trim();const email=document.getElementById('mMemEmail').value.trim();const dept=document.getElementById('mMemDept').value;const utype=document.getElementById('mMemType').value;const role=document.getElementById('mMemRole').value;
+  if(!name||!email||!dept){alert('Please fill all required fields.');return;}
+  members.push({id:'m'+Date.now(),name,ini:name.split(' ').map(p=>p[0]).join('').toUpperCase().slice(0,2),email,dept,role,status:'active',bg:utype==='external'?'#e65100':'#1a5fa8',type:utype});
+  ['mMemName','mMemEmail'].forEach(id=>document.getElementById(id).value='');document.getElementById('mMemDept').value='';
+  closeModal('modalAddMember');renderUserManagement('');
+}
+
+function adPinTopic(id){const t=topics.find(x=>x.id===id);if(t)t.pinned=!t.pinned;renderAdminTopicsTable(document.getElementById('adminTopicSearch')?.value||'');}
+function adEditTopic(id){const t=topics.find(x=>x.id===id);if(!t)return;editTarget={type:'topic',id};document.getElementById('mEditTitle').textContent='Edit Topic';document.getElementById('mEditText').value=t.body;openModal('modalEdit');}
+function adHideTopic(id){const t=topics.find(x=>x.id===id);if(t)t.status=t.status==='hidden'?'open':'hidden';renderAdminTopicsTable(document.getElementById('adminTopicSearch')?.value||'');}
+function adReopenTopic(id){const t=topics.find(x=>x.id===id);if(t)t.status='open';renderAdminTopicsTable(document.getElementById('adminTopicSearch')?.value||'');}
+function adDelTopic(id){if(!confirm('Delete permanently?'))return;const i=topics.findIndex(x=>x.id===id);if(i>-1)topics.splice(i,1);renderAdminTopicsTable(document.getElementById('adminTopicSearch')?.value||'');updateStats();}
+function adToggleComments(id){
+  const t=topics.find(x=>x.id===id);if(!t)return;
+  t.commentsDisabled=!t.commentsDisabled;
+  const action=t.commentsDisabled?'disabled':'enabled';
+  addNotif(`Admin ${action} comments on topic "${t.title}"`,'admin');
+  showToast(`Comments ${action} for "${t.title}"`);
+  renderAdminTopicsTable(document.getElementById('adminTopicSearch')?.value||'');
+}
+// ══ INVITE LINK — Generate, Copy, Auto-detect on load ══
+
+let currentInviteLink = '';
+let currentEmailTemplate = '';
+
+function openInviteLinkModal(){
+  document.getElementById('invRecipient').value = '';
+  document.getElementById('invNote').value = '';
+  document.getElementById('invExpiry').value = '7';
+  document.getElementById('inviteLinkResult').style.display = 'none';
+  document.getElementById('inviteGenBtnRow').style.display = 'flex';
+  currentInviteLink = '';
+  currentEmailTemplate = '';
+  openModal('modalInviteLink');
+}
+
+function generateInviteLink(){
+  // Build a hash-based URL so it works as a pure HTML file with no server
+  const token = 'ext_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+  const expiry = document.getElementById('invExpiry').value;
+  const recipient = document.getElementById('invRecipient').value.trim();
+  const note = document.getElementById('invNote').value.trim();
+
+  // The link points to this same HTML file with a hash fragment
+  // e.g. file:///path/manthan_v8.html#invite=1&token=ext_123_abc
+  const base = window.location.href.split('#')[0];
+  const expiryParam = expiry !== '0' ? '&expiry=' + expiry : '';
+  const recipientParam = recipient ? '&for=' + encodeURIComponent(recipient) : '';
+  currentInviteLink = base + '#invite=1&token=' + token + expiryParam + recipientParam;
+
+  // Build email template
+  const expiryText = expiry === '0' ? 'no expiry' : 'valid for ' + expiry + ' days';
+  const recipientLine = recipient ? 'Dear ' + recipient + ',' : 'Hello,';
+  const noteLine = note ? '\n\n' + note + '\n' : '';
+  currentEmailTemplate =
+    recipientLine +
+    noteLine +
+    '\n\nYou have been invited to join Manthan — the internal discussion forum of Bajaj General Insurance.' +
+    '\n\nClick the link below to access Manthan:' +
+    '\n' + currentInviteLink +
+    '\n\n(' + expiryText + ')' +
+    '\n\nOnce you open the link, enter your email address and verify with a one-time OTP — no password needed.' +
+    '\n\nRegards,\nManthan Admin\nBajaj General Insurance';
+
+  document.getElementById('inviteLinkBox').value = currentInviteLink;
+  document.getElementById('inviteEmailTemplate').textContent = currentEmailTemplate;
+  document.getElementById('inviteLinkResult').style.display = 'block';
+  document.getElementById('inviteGenBtnRow').style.display = 'none';
+}
+
+function copyInviteLink(){
+  const box = document.getElementById('inviteLinkBox');
+  box.select();
+  try {
+    navigator.clipboard.writeText(currentInviteLink).then(()=>showToast('✅ Invite link copied to clipboard!')).catch(()=>{document.execCommand('copy');showToast('✅ Link copied!');});
+  } catch(e) {
+    document.execCommand('copy');
+    showToast('✅ Link copied!');
+  }
+}
+
+function copyEmailTemplate(){
+  try {
+    navigator.clipboard.writeText(currentEmailTemplate).then(()=>showToast('✅ Email template copied!')).catch(()=>{
+      const ta=document.createElement('textarea');ta.value=currentEmailTemplate;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('✅ Email template copied!');
+    });
+  } catch(e) {
+    const ta=document.createElement('textarea');ta.value=currentEmailTemplate;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('✅ Email template copied!');
+  }
+}
+
+// ── Auto-detect invite link on page load ─────────────────────────────────────
+// If the URL contains #invite=1, skip main login and go straight to external OTP flow
+function checkInviteHash(){
+  const hash = window.location.hash; // e.g. #invite=1&token=ext_123&for=Ravi
+  if(!hash.includes('invite=1')) return;
+
+  // Parse hash params
+  const params = {};
+  hash.slice(1).split('&').forEach(p => {
+    const [k,v] = p.split('=');
+    if(k && v !== undefined) params[k] = decodeURIComponent(v);
+  });
+
+  // Show the recipient name on the invite note box if present
+  const forName = params['for'] || '';
+  const expiryDays = params['expiry'] ? parseInt(params['expiry']) : null;
+
+  // Update the invite note shown on the extEmailScreen
+  const noteEl = document.getElementById('inviteLinkNote');
+  if(noteEl){
+    const expiryText = expiryDays ? 'Valid for ' + expiryDays + ' days from when it was sent.' : 'This link has no expiry.';
+    const forText = forName ? ' for <strong>' + forName + '</strong>' : '';
+    noteEl.style.display = 'block';
+    noteEl.innerHTML =
+      '<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">' +
+        '<span style="font-size:16px">🔗</span>' +
+        '<span style="font-weight:600;color:#e65100">You\'re accessing via an invite link' + forText + '</span>' +
+      '</div>' +
+      '<div style="font-size:11px;color:var(--tx2)">' + expiryText + ' · Token: ' + (params['token']||'').slice(0,18) + '…</div>';
+  }
+
+  // Also pre-fill the banner on extEmailScreen
+  const bannerEl = document.querySelector('.ext-entry-banner');
+  if(bannerEl){
+    bannerEl.innerHTML = '<strong>👋 You\'ve been invited!</strong> Enter your email address below. We\'ll send a 6-digit OTP to verify your identity — no password needed.';
+  }
+
+  // Navigate directly to external email screen (skip internal login)
+  showScreen('extEmailScreen');
+  // Clear the hash so back-button works cleanly
+  history.replaceState(null, '', window.location.pathname + window.location.search);
+}
+
+// Run on load
+window.addEventListener('DOMContentLoaded', checkInviteHash);
+// Also handle if script runs after DOM is ready
+if(document.readyState !== 'loading') checkInviteHash();
+</script>
+function showToast(msg, duration=3000){
+  let t=document.getElementById('toastEl');
+  if(!t){
+    t=document.createElement('div');
+    t.id='toastEl';
+    t.style.cssText='position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:9px 18px;border-radius:8px;font-size:13px;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:opacity .3s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg;
+  t.style.opacity='1';
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>{ t.style.opacity='0'; },duration);
+}
+
+// ══ REPORT TOPIC / COMMENT ══
+function openReportTopic(topicId){
+  const t=topics.find(x=>x.id===topicId); if(!t)return;
+  reportTarget={type:'topic',id:topicId,text:t.title};
+  selectedReportReason='';
+  document.querySelectorAll('.report-reason-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('rptTitle').textContent='Report Topic';
+  document.getElementById('rptSubject').textContent='"'+t.title+'"';
+  document.getElementById('rptOtherWrap').style.display='none';
+  document.getElementById('rptOtherText').value='';
+  openModal('modalReport');
+}
+function openReportComment(topicId,commentId,author){
+  reportTarget={type:'comment',id:commentId,topicId,text:'Comment by '+author};
+  selectedReportReason='';
+  document.querySelectorAll('.report-reason-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('rptTitle').textContent='Report Comment';
+  document.getElementById('rptSubject').textContent='Comment by '+author;
+  document.getElementById('rptOtherWrap').style.display='none';
+  document.getElementById('rptOtherText').value='';
+  openModal('modalReport');
+}
+function selectReason(btn,reason){
+  document.querySelectorAll('.report-reason-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedReportReason=reason;
+  document.getElementById('rptOtherWrap').style.display=reason==='Other'?'block':'none';
+}
+function submitReport(){
+  if(!selectedReportReason){alert('Please select a reason.');return;}
+  const reason=selectedReportReason==='Other'?document.getElementById('rptOtherText').value.trim()||'Other':selectedReportReason;
+  closeModal('modalReport');
+  addNotif(`🚨 Report submitted: "${reportTarget?.text||''}" — Reason: ${reason}`,'report');
+  showToast('Report submitted. Admin will review shortly.');
+}
+
+// ══ DISABLE / ENABLE COMMENTS ══
+function openDisableComments(topicId){
+  disableCommentsTopicId=topicId;
+  const t=topics.find(x=>x.id===topicId); if(!t)return;
+  document.getElementById('dcTitle').textContent='Disable Comments';
+  document.getElementById('dcBody').textContent='Once disabled, members will no longer be able to post new comments on this topic. You can re-enable at any time.';
+  openModal('modalDisableComments');
+}
+function confirmDisableComments(){
+  const t=topics.find(x=>x.id===disableCommentsTopicId); if(!t)return;
+  t.commentsDisabled=true;
+  closeModal('modalDisableComments');
+  showToast('Comments disabled for "'+t.title+'"');
+  addNotif('Comments disabled on topic "'+t.title+'"','admin');
+  openTopic(disableCommentsTopicId);
+}
+function toggleComments(topicId){
+  const t=topics.find(x=>x.id===topicId); if(!t)return;
+  t.commentsDisabled=!t.commentsDisabled;
+  const action=t.commentsDisabled?'disabled':'enabled';
+  showToast('Comments '+action+' for "'+t.title+'"');
+  addNotif('Comments '+action+' on topic "'+t.title+'"','admin');
+  openTopic(topicId);
+}
+</script>
+</body>
+</html>
